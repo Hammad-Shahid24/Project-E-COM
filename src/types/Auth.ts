@@ -3,7 +3,3 @@ export interface User {
 
   password: string;
 }
-
-export interface AuthFormProps {
-  setIsRegister: React.Dispatch<React.SetStateAction<boolean>>;
-}
