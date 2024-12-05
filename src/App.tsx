@@ -7,7 +7,6 @@ import "react-toastify/dist/ReactToastify.css";
 // import { RootState } from "./app/store";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 // pages
-import ThemeSwitcher from "./components/ThemeSwitcher";
 
 const App: FC = () => {
   return (
@@ -15,7 +14,7 @@ const App: FC = () => {
       <Layout>
         <Router>
           <Routes>
-            <Route path="/" element={<ThemeSwitcher />} />
+            <Route path="/" element={<div></div>} />
             <Route path="/about" element={<div>About</div>} />
           </Routes>
         </Router>

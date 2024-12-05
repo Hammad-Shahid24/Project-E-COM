@@ -5,6 +5,11 @@ export default {
     extend: {
       colors: {
         slateteal: "#377284",
+        primary: "#5cbbb4",
+        secondary: "#3d7c78",
+        tertiary: "#1e3e3c",
+        myWhite: "#e5e9e9",
+        black: "#000",
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
