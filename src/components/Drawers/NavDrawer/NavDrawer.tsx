@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import NavDrawerContent from "./NavDrawerContent";
 

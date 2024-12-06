@@ -1,11 +1,8 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { GoPerson } from "react-icons/go";
-import { PlusIcon, MinusIcon } from "@heroicons/react/20/solid";
-import { FaShopify } from "react-icons/fa";
 import NavItem from "./NavItem";
-import { HiOutlineShoppingCart } from "react-icons/hi2";
 import { HiMagnifyingGlass } from "react-icons/hi2";
 
 interface NavDrawerContentProps {
