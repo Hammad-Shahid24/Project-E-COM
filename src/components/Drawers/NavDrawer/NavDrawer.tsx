@@ -5,9 +5,14 @@ import NavDrawerContent from "./NavDrawerContent";
 interface NavDrawerProps {
   isOpen: boolean;
   onClose: () => void;
+  toggleAuthDrawer: () => void;
 }
 
-const NavDrawer: FC<NavDrawerProps> = ({ isOpen, onClose }) => {
+const NavDrawer: FC<NavDrawerProps> = ({
+  isOpen,
+  onClose,
+  toggleAuthDrawer,
+}) => {
   return (
     <>
       {/* Backdrop */}
@@ -37,7 +42,10 @@ const NavDrawer: FC<NavDrawerProps> = ({ isOpen, onClose }) => {
             className="fixed top-0 left-0 w-[19rem] h-full bg-white dark:bg-gray-800 shadow-lg z-50"
           >
             <div className="relative h-full">
-              <NavDrawerContent onClose={onClose} />
+              <NavDrawerContent
+                toggleAuthDrawer={toggleAuthDrawer}
+                onClose={onClose}
+              />
             </div>
           </motion.div>
         )}

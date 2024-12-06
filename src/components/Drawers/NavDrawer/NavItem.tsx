@@ -2,12 +2,18 @@ import { FC, ReactNode, useState } from "react";
 import { motion } from "framer-motion";
 import { PlusIcon, MinusIcon } from "@heroicons/react/20/solid";
 
+interface SubNavItem {
+  label: string; // The label for the sub-navigation item
+  onClick?: () => void; // Optional click handler for the sub-navigation item
+}
+
 interface NavItemProps {
   icon?: ReactNode; // Accepts any icon component
   label: string; // The label for the navigation item
   saleBadge?: string; // Optional sale badge text
   expandable?: boolean; // Indicates if the item is expandable
-  subNavItems?: { label: string }[]; // Optional sub-navigation items
+  subNavItems?: SubNavItem[]; // Optional sub-navigation items with click handlers
+  onClick?: () => void; // Optional click handler for the main navigation item
 }
 
 const NavItem: FC<NavItemProps> = ({
@@ -16,8 +22,14 @@ const NavItem: FC<NavItemProps> = ({
   saleBadge,
   expandable,
   subNavItems,
+  onClick,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const handleMainClick = () => {
+    if (onClick) onClick(); // Call the provided onClick handler
+    if (expandable) setIsExpanded(!isExpanded); // Toggle expansion
+  };
 
   return (
     <div className="flex flex-col w-full">
@@ -28,7 +40,7 @@ const NavItem: FC<NavItemProps> = ({
             ? "bg-gray-200 dark:bg-gray-700 text-black dark:text-teal-300"
             : "hover:bg-gray-100 dark:hover:bg-gray-800"
         }`}
-        onClick={() => expandable && setIsExpanded(!isExpanded)}
+        onClick={handleMainClick}
       >
         <div className="flex items-center">
           {/* Icon */}
@@ -84,7 +96,8 @@ const NavItem: FC<NavItemProps> = ({
         {subNavItems?.map((subNav, index) => (
           <div
             key={index}
-            className="flex items-center py-3 border-b w-full border-gray-200 dark:border-gray-600 pl-12"
+            className="flex items-center py-3 border-b w-full border-gray-200 dark:border-gray-600 pl-12 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800"
+            onClick={subNav.onClick}
           >
             <h1 className="text-sm font-light font-poppins text-gray-500 dark:text-white">
               {subNav.label}

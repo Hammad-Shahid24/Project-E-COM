@@ -11,7 +11,7 @@ interface LayoutProps {
 
 const Layout: FC<LayoutProps> = ({ children }) => {
   const [isAuthDrawerOpen, setAuthDrawerOpen] = useState(false);
-  const [isNavDrawerOpen, setNavDrawerOpen] = useState(true);
+  const [isNavDrawerOpen, setNavDrawerOpen] = useState(false);
 
   const toggleAuthDrawer = () => {
     setAuthDrawerOpen((prev) => !prev);
@@ -33,7 +33,11 @@ const Layout: FC<LayoutProps> = ({ children }) => {
           {children}
         </div>
         <AuthDrawer isOpen={isAuthDrawerOpen} onClose={toggleAuthDrawer} />
-        <NavDrawer isOpen={isNavDrawerOpen} onClose={toggleNavDrawer} />
+        <NavDrawer
+          toggleAuthDrawer={toggleAuthDrawer}
+          isOpen={isNavDrawerOpen}
+          onClose={toggleNavDrawer}
+        />
       </div>
     </ThemeProvider>
   );

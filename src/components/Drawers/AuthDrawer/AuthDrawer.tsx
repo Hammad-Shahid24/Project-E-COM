@@ -75,16 +75,17 @@ const AuthDrawer: FC<AuthDrawerProps> = ({ isOpen, onClose }) => {
               <AnimatePresence mode="sync">
                 <motion.div
                   key={currentForm} // Ensure each form gets its unique key
-                  initial={{ x: "100%" }} // Start off-screen to the right
-                  animate={{ x: 0 }} // Slide into view
+                  initial={{ x: "100%", opacity: 0 }} // Start off-screen to the right and fully transparent
+                  animate={{ x: 0, opacity: 1 }} // Slide into view and become fully visible
                   exit={{
                     x: "100%",
+                    opacity: 0,
                     transition: {
                       type: "spring",
                       stiffness: 300,
                       damping: 30,
                     },
-                  }} // Slide out to the left
+                  }} // Slide out to the right and become fully transparent
                   transition={{ type: "spring", stiffness: 300, damping: 30 }}
                   className="absolute top-0 left-0 w-full h-full"
                 >

@@ -40,7 +40,7 @@ const Header: FC<HeaderProps> = ({ AuthDrawerToggle, NavDrawerToggle }) => {
           />
 
           <div className="flex items-center gap-2">
-            <span className="block md:block">
+            <span className="hidden md:block">
               {theme === "dark" ? (
                 <IoSunnyOutline
                   onClick={toggleTheme}
@@ -59,7 +59,8 @@ const Header: FC<HeaderProps> = ({ AuthDrawerToggle, NavDrawerToggle }) => {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="size-7 text-gray-900 dark:text-teal-500 cursor-pointer hidden"
+              // className="size-7 text-gray-900 dark:text-teal-500 cursor-pointer "
+              className="size-7 text-gray-900 dark:text-white cursor-pointer "
             >
               <path
                 strokeLinecap="round"
@@ -69,9 +70,9 @@ const Header: FC<HeaderProps> = ({ AuthDrawerToggle, NavDrawerToggle }) => {
             </svg>
             <GoPerson
               onClick={AuthDrawerToggle}
-              className=" w-7 h-7  text-gray-900 dark:text-white cursor-pointer"
+              className=" w-7 h-7  text-gray-900 dark:text-white cursor-pointer hidden md:block"
             />
-            <FiShoppingCart className="hidden md:block w-6 h-6  text-gray-800 dark:text-white cursor-pointer" />
+            <FiShoppingCart className="block w-6 h-6  text-gray-800 dark:text-white cursor-pointer" />
           </div>
         </div>
       </div>

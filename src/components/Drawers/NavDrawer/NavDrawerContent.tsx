@@ -4,13 +4,21 @@ import { useTranslation } from "react-i18next";
 import { GoPerson } from "react-icons/go";
 import NavItem from "./NavItem";
 import { HiMagnifyingGlass } from "react-icons/hi2";
+import { useTheme } from "../../../hooks/useTheme";
+import { FiMoon } from "react-icons/fi";
+import { IoSunnyOutline } from "react-icons/io5";
 
 interface NavDrawerContentProps {
   onClose: () => void;
+  toggleAuthDrawer: () => void;
 }
 
-const NavDrawerContent: FC<NavDrawerContentProps> = ({ onClose }) => {
+const NavDrawerContent: FC<NavDrawerContentProps> = ({
+  onClose,
+  toggleAuthDrawer,
+}) => {
   const { t } = useTranslation();
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <div className="flex flex-col  items-center justify-center">
@@ -29,7 +37,7 @@ const NavDrawerContent: FC<NavDrawerContentProps> = ({ onClose }) => {
           viewBox="0 0 24 24"
           strokeWidth={1}
           stroke="currentColor"
-          className="h-10 w-10 cursor-pointer text-white dark:text-teal-300 bg-black absolute -right-10 top-0"
+          className="h-10 w-10 cursor-pointer text-white dark:text-teal-300 bg-black dark:bg-gray-950 absolute -right-10 top-0"
           onClick={onClose}
         >
           <path
@@ -75,6 +83,27 @@ const NavDrawerContent: FC<NavDrawerContentProps> = ({ onClose }) => {
           label={`${t("drawers.navdrawer.login")} / ${t(
             "drawers.navdrawer.register"
           )}`}
+          onClick={() => {
+            onClose();
+            toggleAuthDrawer();
+          }}
+        />
+        <NavItem
+          icon={
+            theme === "dark" ? (
+              <IoSunnyOutline
+                onClick={toggleTheme}
+                className="w-5 h-5 text-gray-900 dark:text-white cursor-pointer"
+              />
+            ) : (
+              <FiMoon
+                onClick={toggleTheme}
+                className="w-5 h-5 text-gray-900 dark:text-white cursor-pointer"
+              />
+            )
+          }
+          label={theme === "dark" ? t("theme.light") : t("theme.dark")}
+          onClick={toggleTheme}
         />
       </div>
     </div>

@@ -1,5 +1,9 @@
 {
     "translation": {
+        "theme": {
+            "light": "Light",
+            "dark": "Dark"
+        },
         "header": {
             "welcome": "Welcome to our store!",
             "miniheader": {

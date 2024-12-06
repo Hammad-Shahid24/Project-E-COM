@@ -1,5 +1,9 @@
 {
     "translation": {
+        "theme": {
+            "light": "ライト",
+            "dark": "ダーク"
+        },
         "header": {
             "welcome": "私たちの店へようこそ！",
             "miniheader": {
