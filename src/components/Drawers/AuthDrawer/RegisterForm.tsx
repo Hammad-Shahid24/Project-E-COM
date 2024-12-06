@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import { useDispatch } from "react-redux";
 // import { register } from "../redux/auth/authSlice";
-import { validateEmail, validatePassword } from "../utils/validations";
+import { validateEmail, validatePassword } from "../../../utils/validations";
 import { toast } from "react-toastify";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/20/solid";
 import { Link, useNavigate } from "react-router-dom";

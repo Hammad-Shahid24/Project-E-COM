@@ -1,0 +1,30 @@
+{
+    "translation": {
+        "header": {
+            "welcome": "私たちの店へようこそ！",
+            "miniheader": {
+                "grabDiscount": "今すぐ割引を手に入れよう：",
+                "shopNow": "今すぐ購入"
+            }
+        },
+        "drawers": {
+            "navdrawer": {
+                "menu": "メニュー",
+                "collections": "コレクション",
+                "bestsellers": "ベストセラー",
+                "newarrivals": "新着商品",
+                "beauty": "美容",
+                "haircare": "ヘアケア",
+                "skincare": "スキンケア",
+                "sale": "セール",
+                "quicklinks": "クイックリンク",
+                "aboutus": "私たちに関しては",
+                "contactus": "お問い合わせ",
+                "faqs": "よくある質問",
+                "search": "検索",
+                "login": "ログイン",
+                "register": "登録"
+            }
+        }
+    }
+}

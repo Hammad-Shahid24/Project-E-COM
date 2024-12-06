@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 // import { useSelector } from "react-redux";
 // import { RootState } from "./app/store";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import "./config/i18next";
 // pages
 
 const App: FC = () => {

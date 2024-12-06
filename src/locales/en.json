@@ -1,0 +1,30 @@
+{
+    "translation": {
+        "header": {
+            "welcome": "Welcome to our store!",
+            "miniheader": {
+                "grabDiscount": "Grab your discount now:",
+                "shopNow": "Shop now"
+            }
+        },
+        "drawers": {
+            "navdrawer": {
+                "menu": "MENU",
+                "collections": "Collections",
+                "bestsellers": "Best Sellers",
+                "newarrivals": "New Arrivals",
+                "beauty": "Beauty",
+                "haircare": "Hair care",
+                "skincare": "Skin care",
+                "sale": "Sale",
+                "quicklinks": "Quick links",
+                "aboutus": "About us",
+                "contactus": "Contact us",
+                "faqs": "FAQs",
+                "search": "Search",
+                "login": "Login",
+                "register": "Register"
+            }
+        }
+    }
+}

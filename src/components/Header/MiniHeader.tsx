@@ -1,9 +1,12 @@
 import { FC } from "react";
 import { FiPhone } from "react-icons/fi";
 import { BsEnvelope } from "react-icons/bs";
-import { LuSailboat } from "react-icons/lu";
+import LanguageSwitcher from "../LanguageSwitcher";
+import { useTranslation } from "react-i18next";
 
 const MiniHeader: FC = () => {
+  const { t } = useTranslation();
+
   return (
     <header className="w-full bg-[#f6f6f8] dark:bg-gray-800  dark:border-gray-700">
       <div className="max-w-screen-xl mx-auto px-4 py-2 hidden lg:flex justify-between items-center relative text-xs text-gray-500 dark:text-white font-poppins">
@@ -20,27 +23,27 @@ const MiniHeader: FC = () => {
           </div>
         </div>
         <div className="flex items-center text-center absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          <span>Grab your discount now:</span>
+          <span>{t("header.miniheader.grabDiscount")}</span>
           <span className="text-red-500 dark:text-teal-400 font-medium  px-1">
             PsytechBF40
           </span>
           <span className="font-bold text-gray-800 dark:text-white dark:hover:text-teal-400 hover:text-teal-700 transition-colors duration-300 cursor-pointer ">
-            Shop Now
+            {t("header.miniheader.shopNow")}
           </span>
         </div>
-        <LuSailboat className="w-6 h-6 text-gray-900 dark:text-white cursor-pointer" />
+        <LanguageSwitcher />{" "}
       </div>
-      <div className="max-w-screen-xl mx-auto gap-1 py-2 flex flex-col lg:hidden justify-center items-center  text-xs text-gray-500 dark:text-white font-poppins">
+      <div className="max-w-screen-xl mx-auto gap-1.5 py-2 flex flex-col lg:hidden justify-center items-center  text-xs text-gray-500 dark:text-white font-poppins">
         <div className="flex items-center text-center ">
-          <span>Grab your discount now:</span>
+          <span>{t("header.miniheader.grabDiscount")}</span>
           <span className="text-red-500 dark:text-teal-400 font-medium  px-1">
             PsytechBF40
           </span>
           <span className="font-bold text-gray-800 dark:text-white dark:hover:text-teal-400 hover:text-teal-700 transition-colors duration-300 cursor-pointer ">
-            Shop Now
+            {t("header.miniheader.shopNow")}
           </span>
         </div>
-        <LuSailboat className="w-6 h-6 text-gray-900 dark:text-white cursor-pointer" />
+        <LanguageSwitcher />{" "}
       </div>
     </header>
   );
