@@ -1,8 +1,7 @@
 import { FC, useState } from "react";
-import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { validateEmail, validatePassword } from "../../../utils/validations";
-import { EyeIcon, EyeSlashIcon, XMarkIcon } from "@heroicons/react/20/solid";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/20/solid";
 // import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
@@ -39,10 +38,10 @@ const LoginForm: FC<LoginFormProps> = ({
       return;
     }
 
-    const user = {
-      email,
-      password,
-    };
+    // const user = {
+    //   email,
+    //   password,
+    // };
 
     // try {
     //   dispatch(login(user)).then((result) => {

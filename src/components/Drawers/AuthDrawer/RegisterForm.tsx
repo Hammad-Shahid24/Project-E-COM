@@ -1,10 +1,10 @@
 import { FC, useState } from "react";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 // import { register } from "../redux/auth/authSlice";
 import { validateEmail, validatePassword } from "../../../utils/validations";
 import { toast } from "react-toastify";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/20/solid";
-import { Link, useNavigate } from "react-router-dom";
+// import { Link, useNavigate } from "react-router-dom";
 // Firebase integration
 // import { auth } from "../../firebase.ts";
 // import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -26,7 +26,7 @@ const RegisterForm: FC<RegisterFormProps> = ({ gotoLogin, onClose }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [loading, setLoading] = useState(false); // For loading state
+  const [, setLoading] = useState(false); // For loading state
 
   const handleRegister = async () => {
     if (!validateEmail(email)) {

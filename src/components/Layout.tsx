@@ -2,7 +2,6 @@ import { FC, ReactNode, useState } from "react";
 import { ThemeProvider } from "../context/ThemeProvider";
 import AuthDrawer from "./Drawers/AuthDrawer/AuthDrawer";
 import NavDrawer from "./Drawers/NavDrawer/NavDrawer";
-import { AnimatePresence } from "framer-motion";
 import MiniHeader from "./Header/MiniHeader";
 import Header from "./Header/Header";
 

@@ -1,8 +1,8 @@
 import { FC, useState } from "react";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { validateEmail, validatePassword } from "../../../utils/validations";
-import { EyeIcon, EyeSlashIcon, XMarkIcon } from "@heroicons/react/20/solid";
+// import { EyeIcon, EyeSlashIcon, XMarkIcon } from "@heroicons/react/20/solid";
 // import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
@@ -19,8 +19,8 @@ const RecoverPasswordForm: FC<RecoverPasswordFormProps> = ({
   // const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [password] = useState("");
+  // const [passwordVisible, setPasswordVisible] = useState(false);
 
   const handleLogin = () => {
     console.log("login");
@@ -37,10 +37,10 @@ const RecoverPasswordForm: FC<RecoverPasswordFormProps> = ({
       return;
     }
 
-    const user = {
-      email,
-      password,
-    };
+    // const user = {
+    //   email,
+    //   password,
+    // };
 
     // try {
     //   dispatch(login(user)).then((result) => {
