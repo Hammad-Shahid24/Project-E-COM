@@ -44,9 +44,9 @@
                 "viewall": "すべて表示"
             },
             "cartdrawer": {
-                "shoppingcart": "SHOPPING CART",
-                "emptycart": "Your cart is empty.",
-                "return": "RETURN TO SHOP"
+                "shoppingcart": "ショッピングカート",
+                "emptycart": "カートは空です。",
+                "return": "ショップに戻る"
             }
         }
     }
