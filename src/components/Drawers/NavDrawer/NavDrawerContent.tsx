@@ -11,11 +11,13 @@ import { IoSunnyOutline } from "react-icons/io5";
 interface NavDrawerContentProps {
   onClose: () => void;
   toggleAuthDrawer: () => void;
+  toggleSearchDrawer: () => void;
 }
 
 const NavDrawerContent: FC<NavDrawerContentProps> = ({
   onClose,
   toggleAuthDrawer,
+  toggleSearchDrawer,
 }) => {
   const { t } = useTranslation();
   const { theme, toggleTheme } = useTheme();
@@ -77,6 +79,10 @@ const NavDrawerContent: FC<NavDrawerContentProps> = ({
             <HiMagnifyingGlass className="w-5 h-5 text-gray-900 dark:text-white" />
           }
           label={t("drawers.navdrawer.search")}
+          onClick={() => {
+            onClose();
+            toggleSearchDrawer();
+          }}
         />
         <NavItem
           icon={<GoPerson className="w-5 h-5 text-gray-900 dark:text-white" />}

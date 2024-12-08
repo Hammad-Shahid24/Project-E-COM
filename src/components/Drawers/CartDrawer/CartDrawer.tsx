@@ -1,20 +1,13 @@
 import { FC } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import NavDrawerContent from "./NavDrawerContent";
+import CartDrawerContent from "./CartDrawerContent";
 
-interface NavDrawerProps {
+interface SearchDrawerProps {
   isOpen: boolean;
   onClose: () => void;
-  toggleAuthDrawer: () => void;
-  toggleSearchDrawer: () => void;
 }
 
-const NavDrawer: FC<NavDrawerProps> = ({
-  isOpen,
-  onClose,
-  toggleAuthDrawer,
-  toggleSearchDrawer,
-}) => {
+const CartDrawer: FC<SearchDrawerProps> = ({ isOpen, onClose }) => {
   return (
     <>
       {/* Backdrop */}
@@ -34,21 +27,17 @@ const NavDrawer: FC<NavDrawerProps> = ({
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ x: "-100%" }}
+            initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{
-              x: "-100%",
+              x: "100%",
               transition: { type: "spring", stiffness: 300, damping: 30 },
             }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="fixed top-0 left-0 w-[19rem] h-full bg-white dark:bg-gray-800 shadow-lg z-50"
+            className="fixed top-0 right-0 w-80 h-full bg-white dark:bg-gray-800 shadow-lg z-50"
           >
             <div className="relative h-full">
-              <NavDrawerContent
-                toggleAuthDrawer={toggleAuthDrawer}
-                toggleSearchDrawer={toggleSearchDrawer}
-                onClose={onClose}
-              />
+              <CartDrawerContent onClose={onClose} />
             </div>
           </motion.div>
         )}
@@ -57,4 +46,4 @@ const NavDrawer: FC<NavDrawerProps> = ({
   );
 };
 
-export default NavDrawer;
+export default CartDrawer;

@@ -7,15 +7,22 @@ import { FiMoon } from "react-icons/fi";
 import { IoSunnyOutline } from "react-icons/io5";
 import { HiBars3CenterLeft } from "react-icons/hi2";
 import { useTranslation } from "react-i18next";
-
+import HeaderItem from "./HeaderItem";
 import { useTheme } from "../../hooks/useTheme";
 
 interface HeaderProps {
   AuthDrawerToggle: () => void;
   NavDrawerToggle: () => void;
+  SearchDrawerToggle: () => void;
+  CartDrawerToggle: () => void;
 }
 
-const Header: FC<HeaderProps> = ({ AuthDrawerToggle, NavDrawerToggle }) => {
+const Header: FC<HeaderProps> = ({
+  AuthDrawerToggle,
+  NavDrawerToggle,
+  SearchDrawerToggle,
+  CartDrawerToggle,
+}) => {
   const { t } = useTranslation();
 
   const { theme, toggleTheme } = useTheme();
@@ -23,7 +30,7 @@ const Header: FC<HeaderProps> = ({ AuthDrawerToggle, NavDrawerToggle }) => {
   return (
     <header className="w-full bg-white dark:bg-gray-800 ">
       <div className="max-w-screen-xl mx-auto px-4 ">
-        <div className="flex justify-between items-center py-4 relative md:border-b border-gray-300">
+        <div className="flex justify-between items-center py-4 relative md:border-b border-gray-300 ">
           <div>
             <h1 className="hidden md:block font-medium text-sm text-black dark:text-white">
               {t("header.welcome")}
@@ -34,7 +41,7 @@ const Header: FC<HeaderProps> = ({ AuthDrawerToggle, NavDrawerToggle }) => {
             />
           </div>
           <img
-            className="object-contain w-32 md:w-40 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
+            className="object-contain w-32 md:w-40 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer"
             src={theme === "dark" ? darkLogo : logo}
             alt="Site Logo"
           />
@@ -44,12 +51,12 @@ const Header: FC<HeaderProps> = ({ AuthDrawerToggle, NavDrawerToggle }) => {
               {theme === "dark" ? (
                 <IoSunnyOutline
                   onClick={toggleTheme}
-                  className="w-6 h-6 text-gray-900 dark:text-white cursor-pointer"
+                  className="w-[1.55rem] h-[1.55rem] text-gray-900 dark:text-white cursor-pointer"
                 />
               ) : (
                 <FiMoon
                   onClick={toggleTheme}
-                  className="w-6 h-6 text-gray-900 dark:text-white cursor-pointer"
+                  className="w-6 h-6 text-gray-900 dark:text-white cursor-pointer "
                 />
               )}
             </span>
@@ -61,6 +68,7 @@ const Header: FC<HeaderProps> = ({ AuthDrawerToggle, NavDrawerToggle }) => {
               stroke="currentColor"
               // className="size-7 text-gray-900 dark:text-teal-500 cursor-pointer "
               className="size-7 text-gray-900 dark:text-white cursor-pointer "
+              onClick={SearchDrawerToggle}
             >
               <path
                 strokeLinecap="round"
@@ -72,8 +80,27 @@ const Header: FC<HeaderProps> = ({ AuthDrawerToggle, NavDrawerToggle }) => {
               onClick={AuthDrawerToggle}
               className=" w-7 h-7  text-gray-900 dark:text-white cursor-pointer hidden md:block"
             />
-            <FiShoppingCart className="block w-6 h-6  text-gray-800 dark:text-white cursor-pointer" />
+            <FiShoppingCart
+              onClick={CartDrawerToggle}
+              className="block w-6 h-6  text-gray-800 dark:text-white cursor-pointer"
+            />
           </div>
+        </div>
+        <div className=" hidden md:block mx-auto w-fit py-4">
+          <HeaderItem
+            label={t("header.newarrivals")}
+            badge={t("header.new")}
+            badgeColor="bg-red-600"
+          />
+          <HeaderItem
+            label={t("header.bestsellers")}
+            badge={t("header.sale")}
+            badgeColor="bg-cyan-500"
+          />
+          <HeaderItem label={t("header.skincare")} />
+          <HeaderItem label={t("header.facemask")} />
+          <HeaderItem label={t("header.textureandmakeup")} />
+          <HeaderItem label={t("header.contactus")} />
         </div>
       </div>
     </header>

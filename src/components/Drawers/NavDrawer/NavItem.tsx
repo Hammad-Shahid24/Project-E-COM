@@ -38,7 +38,7 @@ const NavItem: FC<NavItemProps> = ({
         className={`flex justify-between items-center pb-3 pt-4 border-b border-gray-300 w-full px-5 cursor-pointer transition-all ${
           isExpanded
             ? "bg-gray-200 dark:bg-gray-700 text-black dark:text-teal-300"
-            : "hover:bg-gray-100 dark:hover:bg-gray-800"
+            : "hover:bg-gray-100 dark:hover:bg-gray-800 active:bg-gray-300 dark:active:bg-gray-600"
         }`}
         onClick={handleMainClick}
       >
@@ -96,7 +96,7 @@ const NavItem: FC<NavItemProps> = ({
         {subNavItems?.map((subNav, index) => (
           <div
             key={index}
-            className="flex items-center py-3 border-b w-full border-gray-200 dark:border-gray-600 pl-12 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="flex items-center py-3 border-b w-full border-gray-200 dark:border-gray-600 pl-12 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 active:bg-gray-300 dark:active:bg-gray-600"
             onClick={subNav.onClick}
           >
             <h1 className="text-sm font-light font-poppins text-gray-500 dark:text-white">

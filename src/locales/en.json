@@ -6,6 +6,14 @@
         },
         "header": {
             "welcome": "Welcome to our store!",
+            "newarrivals": "New Arrivals",
+            "new": "New",
+            "bestsellers": "Best Sellers",
+            "sale": "Sale",
+            "skincare": "Skin care",
+            "facemask": "Face Mask",
+            "textureandmakeup": "Texture & Makeup",
+            "contactus": "Contact us",
             "miniheader": {
                 "grabDiscount": "Grab your discount now:",
                 "shopNow": "Shop now"
@@ -28,6 +36,17 @@
                 "search": "Search",
                 "login": "Login",
                 "register": "Register"
+            },
+            "searchdrawer": {
+                "search": "SEARCH OUR SITE",
+                "searchplaceholder": "Search",
+                "inspiration": "Need some inspiration?",
+                "viewall": "View all"
+            },
+            "cartdrawer": {
+                "shoppingcart": "SHOPPING CART",
+                "emptycart": "Your cart is empty.",
+                "return": "RETURN TO SHOP"
             }
         }
     }

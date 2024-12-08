@@ -6,6 +6,14 @@
         },
         "header": {
             "welcome": "私たちの店へようこそ！",
+            "newarrivals": "新着商品",
+            "new": "新しい",
+            "bestsellers": "ベストセラー",
+            "sale": "セール",
+            "skincare": "スキンケア",
+            "facemask": "フェイスマスク",
+            "textureandmakeup": "テクスチャー＆メイクアップ",
+            "contactus": "お問い合わせ",
             "miniheader": {
                 "grabDiscount": "今すぐ割引を手に入れよう：",
                 "shopNow": "今すぐ購入"
@@ -28,6 +36,17 @@
                 "search": "検索",
                 "login": "ログイン",
                 "register": "登録"
+            },
+            "searchdrawer": {
+                "search": "サイト内検索",
+                "searchplaceholder": "検索",
+                "inspiration": "インスピレーションが必要ですか？",
+                "viewall": "すべて表示"
+            },
+            "cartdrawer": {
+                "shoppingcart": "SHOPPING CART",
+                "emptycart": "Your cart is empty.",
+                "return": "RETURN TO SHOP"
             }
         }
     }
