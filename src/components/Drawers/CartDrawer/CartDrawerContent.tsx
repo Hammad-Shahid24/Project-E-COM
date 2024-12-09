@@ -41,7 +41,7 @@ const CartDrawerContent: FC<CartDrawerContentProps> = ({ onClose }) => {
 
       {/* the below div contains the inspiration text */}
       <div className="w-8/12 py-12 px-4 space-y-4 mx-auto ">
-        <TbShoppingBagX className="w-12 h-12 text-cyan-800 dark:text-gray-500 mx-auto" />
+        <TbShoppingBagX className="w-12 h-12 text-cyan-800 dark:text-gray-400 mx-auto" />
         <h1 className="text-sm font-poppins  text-center text-cyan-800 dark:text-teal-200">
           {t("drawers.cartdrawer.emptycart")}
         </h1>

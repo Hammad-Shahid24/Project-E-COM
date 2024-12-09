@@ -15,7 +15,19 @@ const App: FC = () => {
       <Layout>
         <Router>
           <Routes>
-            <Route path="/" element={<div></div>} />
+            <Route
+              path="/"
+              element={
+                <>
+                  <div className="flex w-full h-screen justify-between items-center">
+                    Testing navbars
+                  </div>
+                  <div className="flex w-full h-screen justify-between items-center">
+                    Testing navbars
+                  </div>
+                </>
+              }
+            />
             <Route path="/about" element={<div>About</div>} />
           </Routes>
         </Router>
