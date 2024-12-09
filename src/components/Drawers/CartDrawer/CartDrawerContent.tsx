@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { TbShoppingBagX } from "react-icons/tb";
 // import SearchItem from "./SearchItem";
-import { CustomScroll } from "react-custom-scroll";
+// import { CustomScroll } from "react-custom-scroll";
 // import "../../../styles/custom-scroll.css";
 
 interface CartDrawerContentProps {

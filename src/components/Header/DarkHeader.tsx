@@ -1,5 +1,4 @@
 import { FC } from "react";
-import logo from "../../assets/logo.png";
 import darkLogo from "../../assets/Psytech.svg";
 import { GoPerson } from "react-icons/go";
 import { FiShoppingCart } from "react-icons/fi";
