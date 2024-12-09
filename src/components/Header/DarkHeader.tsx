@@ -6,7 +6,7 @@ import { FiMoon } from "react-icons/fi";
 import { IoSunnyOutline } from "react-icons/io5";
 import { HiBars3CenterLeft } from "react-icons/hi2";
 import { useTranslation } from "react-i18next";
-import HeaderItem from "./HeaderItem";
+import DarkHeaderItem from "./DarkHeaderItem";
 import { useTheme } from "../../hooks/useTheme";
 
 interface HeaderProps {
@@ -85,20 +85,20 @@ const DarkHeader: FC<HeaderProps> = ({
           </div>
         </div>
         <div className="hidden md:block mx-auto w-fit py-4">
-          <HeaderItem
+          <DarkHeaderItem
             label={t("header.newarrivals")}
             badge={t("header.new")}
             badgeColor="bg-red-600"
           />
-          <HeaderItem
+          <DarkHeaderItem
             label={t("header.bestsellers")}
             badge={t("header.sale")}
             badgeColor="bg-cyan-500"
           />
-          <HeaderItem label={t("header.skincare")} />
-          <HeaderItem label={t("header.facemask")} />
-          <HeaderItem label={t("header.textureandmakeup")} />
-          <HeaderItem label={t("header.contactus")} />
+          <DarkHeaderItem label={t("header.skincare")} />
+          <DarkHeaderItem label={t("header.facemask")} />
+          <DarkHeaderItem label={t("header.textureandmakeup")} />
+          <DarkHeaderItem label={t("header.contactus")} />
         </div>
       </div>
     </header>

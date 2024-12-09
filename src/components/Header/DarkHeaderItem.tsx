@@ -12,7 +12,7 @@ const DarkHeaderItem: FC<HeaderItemProps> = ({
   badgeColor = null,
 }) => {
   return (
-    <a className="text-sm font-poppins text-white dark:text-gray-800 hover:text-teal-400 dark:hover:text-teal-600 transition-colors duration-300 px-3 cursor-pointer">
+    <a className="text-sm font-poppins text-white hover:text-teal-400  transition-colors duration-300 px-3 cursor-pointer">
       {label}
       {badge && (
         <span
