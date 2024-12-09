@@ -17,7 +17,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const [isAuthDrawerOpen, setAuthDrawerOpen] = useState(false);
   const [isNavDrawerOpen, setNavDrawerOpen] = useState(false);
   const [isSearchDrawerOpen, setSearchDrawerOpen] = useState(false);
-  const [isCartDrawerOpen, setCartDrawerOpen] = useState(true);
+  const [isCartDrawerOpen, setCartDrawerOpen] = useState(false);
   const [isStickyHeaderVisible, setStickyHeaderVisible] = useState(false);
 
   const toggleAuthDrawer = () => {
