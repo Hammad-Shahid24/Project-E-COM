@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { RiMapPinLine, RiPhoneLine } from "react-icons/ri";
+import { RiMapPinLine } from "react-icons/ri";
 import { BsEnvelope } from "react-icons/bs";
 import { HiOutlinePhone } from "react-icons/hi2";
 import FooterCopyrightComponent from "./FooterCopyrightComponent";
