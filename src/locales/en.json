@@ -59,6 +59,12 @@
                 "returnsdetail": "Simply return it within 7 days for an exchange",
                 "payment": "100% SECURE PAYMENT",
                 "paymentdetail": "We ensure secure payment & Cash on Delivery too"
+            },
+            "discount": {
+                "heading": "Get 10% Off Discount",
+                "detail": "Subscribe to our newsletter now and stay up-to-date with new collections, the latest deals.",
+                "email": "Your email address",
+                "subscribe": "Subscribe"
             }
         }
     }
