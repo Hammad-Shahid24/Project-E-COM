@@ -48,6 +48,18 @@
                 "emptycart": "カートは空です。",
                 "return": "ショップに戻る"
             }
+        },
+        "homepage": {
+            "services": {
+                "shipping": "配送",
+                "shippingdetail": "世界中に配送します",
+                "support": "24/7 サポート",
+                "supportdetail": "24時間365日お問い合わせください",
+                "returns": "7日間返品",
+                "returnsdetail": "7日以内に返品して交換できます",
+                "payment": "100% 安全な支払い",
+                "paymentdetail": "安全な支払いと代金引換も対応しています"
+            }
         }
     }
 }

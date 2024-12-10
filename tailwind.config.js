@@ -4,6 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
+        zenithHeader: "#244d5a",
         slateteal: "#377284",
         primary: "#5cbbb4",
         secondary: "#3d7c78",

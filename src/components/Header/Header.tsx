@@ -32,7 +32,7 @@ const Header: FC<HeaderProps> = ({
       <div className="max-w-screen-xl mx-auto px-4 ">
         <div className="flex justify-between items-center py-4 relative md:border-b border-gray-300 ">
           <div>
-            <h1 className="hidden md:block font-medium text-sm text-black dark:text-white">
+            <h1 className="hidden md:block font-medium text-md text-black dark:text-white">
               {t("header.welcome")}
             </h1>
             <HiBars3CenterLeft

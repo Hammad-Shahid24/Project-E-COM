@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./config/i18next";
 // pages
+import Home from "./pages/Home";
 
 const App: FC = () => {
   return (
@@ -15,19 +16,7 @@ const App: FC = () => {
       <Layout>
         <Router>
           <Routes>
-            <Route
-              path="/"
-              element={
-                <>
-                  <div className="flex w-full h-screen justify-between items-center">
-                    Testing navbars
-                  </div>
-                  <div className="flex w-full h-screen justify-between items-center">
-                    Testing navbars
-                  </div>
-                </>
-              }
-            />
+            <Route path="/" element={<Home />} />
             <Route path="/about" element={<div>About</div>} />
           </Routes>
         </Router>

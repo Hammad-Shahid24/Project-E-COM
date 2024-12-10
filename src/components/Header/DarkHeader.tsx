@@ -27,11 +27,11 @@ const DarkHeader: FC<HeaderProps> = ({
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <header className="w-full bg-gray-800">
+    <header className="w-full bg-zenithHeader dark:bg-gray-800">
       <div className="max-w-screen-xl mx-auto px-4">
         <div className="flex justify-between items-center py-4 relative md:border-b border-gray-700">
           <div>
-            <h1 className="hidden md:block font-medium text-sm text-white">
+            <h1 className="hidden md:block font-medium text-md text-white">
               {t("header.welcome")}
             </h1>
             <HiBars3CenterLeft

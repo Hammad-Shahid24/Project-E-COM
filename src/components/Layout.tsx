@@ -7,6 +7,7 @@ import CartDrawer from "./Drawers/CartDrawer/CartDrawer";
 import MiniHeader from "./Header/MiniHeader";
 import Header from "./Header/Header";
 import DarkHeader from "./Header/DarkHeader";
+import Footer from "./Footer/Footer";
 import { motion } from "framer-motion";
 
 interface LayoutProps {
@@ -55,7 +56,8 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <ThemeProvider>
       <div className="w-full min-h-screen bg-white dark:bg-gray-900">
-        <div className="max-w-screen-2xl mx-auto">
+        {/* <div className="max-w-screen-2xl mx-auto"> */}
+        <div className="max-w-full mx-auto">
           <MiniHeader />
           <Header
             NavDrawerToggle={toggleNavDrawer}
@@ -64,6 +66,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
             CartDrawerToggle={toggleCartDrawer}
           />
           {children}
+          <Footer />
         </div>
         {isStickyHeaderVisible && (
           <motion.div

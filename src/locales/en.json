@@ -48,6 +48,18 @@
                 "emptycart": "Your cart is empty.",
                 "return": "RETURN TO SHOP"
             }
+        },
+        "homepage": {
+            "services": {
+                "shipping": "SHIPPING",
+                "shippingdetail": "Shipping all over the world",
+                "support": "SUPPORT 24/7",
+                "supportdetail": "Contact us 24 hours a day, 7 days a week",
+                "returns": "7 DAYS RETURN",
+                "returnsdetail": "Simply return it within 7 days for an exchange",
+                "payment": "100% SECURE PAYMENT",
+                "paymentdetail": "We ensure secure payment & Cash on Delivery too"
+            }
         }
     }
 }
