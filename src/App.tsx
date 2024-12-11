@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./config/i18next";
 // pages
 import Home from "./pages/Home";
+import CollectionPage from "./pages/CollectionPages";
 
 const App: FC = () => {
   return (
@@ -17,12 +18,12 @@ const App: FC = () => {
         <Layout>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/new-arrivals" element={<div>About</div>} />
-            <Route path="/best-sellers" element={<div>About</div>} />
-            <Route path="/skin-care" element={<div>About</div>} />
-            <Route path="/face-mask" element={<div>About</div>} />
-            <Route path="/texture-and-makeup" element={<div>About</div>} />
-            <Route path="/contact-us" element={<div>About</div>} />
+            <Route path="/new-arrivals" element={<CollectionPage />} />
+            <Route path="/best-sellers" element={<CollectionPage />} />
+            <Route path="/skin-care" element={<CollectionPage />} />
+            <Route path="/face-mask" element={<CollectionPage />} />
+            <Route path="/texture-and-makeup" element={<CollectionPage />} />
+            <Route path="/contact-us" element={<div>contact us </div>} />
           </Routes>
           <ToastContainer />
         </Layout>
