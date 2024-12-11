@@ -23,7 +23,7 @@ const App: FC = () => {
             <Route path="/skin-care" element={<CollectionPage />} />
             <Route path="/face-mask" element={<CollectionPage />} />
             <Route path="/texture-and-makeup" element={<CollectionPage />} />
-            <Route path="/contact-us" element={<div>contact us </div>} />
+            <Route path="/contact-us" element={<div>contact uadfs </div>} />
           </Routes>
           <ToastContainer />
         </Layout>

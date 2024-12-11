@@ -71,16 +71,14 @@ const BestSellers: FC = () => {
   };
 
   return (
-    <div className="w-full py-12 font-poppins  dark:bg-gray-900">
+    <div className="w-full pb-12 pt-6 font-poppins  dark:bg-gray-900">
       <div className="max-w-screen-xl mx-auto px-4">
         <h2 className="text-xl font-semibold text-center text-teal-900 dark:text-white mb-6">
           {t("homepage.bestsellers.heading")}
         </h2>
         <Slider {...settings}>
           {dummyProducts.map((product) => (
-            <ProductCard
-              key={product.price +  Math.random()}
-            />
+            <ProductCard key={product.price + Math.random()} />
           ))}
         </Slider>
       </div>

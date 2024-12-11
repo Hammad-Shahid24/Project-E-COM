@@ -13,7 +13,7 @@ const Home: FC = () => {
   return (
     <div className="w-full mx-auto">
       <Carousel />
-      <AnimatedSection delay={0.2}>
+      <AnimatedSection delay={0.4}>
         <FeaturedCollections />
       </AnimatedSection>
       <AnimatedSection delay={0.4}>
@@ -33,10 +33,10 @@ const Home: FC = () => {
         <span className="mx-16">{t("homepage.marquee.4")}</span>
         <span className="mx-16">{t("homepage.marquee.5")}</span>
       </Marquee>
-      <AnimatedSection delay={0.6}>
+      <AnimatedSection delay={0.4}>
         <Services />
       </AnimatedSection>
-      <AnimatedSection delay={0.8}>
+      <AnimatedSection delay={0.4}>
         <Discount />
       </AnimatedSection>
     </div>
