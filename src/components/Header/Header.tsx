@@ -9,6 +9,7 @@ import { HiBars3CenterLeft } from "react-icons/hi2";
 import { useTranslation } from "react-i18next";
 import HeaderItem from "./HeaderItem";
 import { useTheme } from "../../hooks/useTheme";
+import { Link } from "react-router-dom";
 
 interface HeaderProps {
   AuthDrawerToggle: () => void;
@@ -40,11 +41,13 @@ const Header: FC<HeaderProps> = ({
               className="md:hidden w-8 h-8 text-gray-900 dark:text-white cursor-pointer"
             />
           </div>
-          <img
-            className="object-contain w-32 md:w-40 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer"
-            src={theme === "dark" ? darkLogo : logo}
-            alt="Site Logo"
-          />
+          <Link to="/">
+            <img
+              className="object-contain w-32 md:w-40 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer"
+              src={theme === "dark" ? darkLogo : logo}
+              alt="Site Logo"
+            />
+          </Link>
 
           <div className="flex items-center gap-2">
             <span className="hidden md:block">

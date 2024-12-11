@@ -77,8 +77,10 @@ const BestSellers: FC = () => {
           {t("homepage.bestsellers.heading")}
         </h2>
         <Slider {...settings}>
-          {dummyProducts.map((product, index) => (
-            <ProductCard key={index} />
+          {dummyProducts.map((product) => (
+            <ProductCard
+              key={product.price +  Math.random()}
+            />
           ))}
         </Slider>
       </div>
