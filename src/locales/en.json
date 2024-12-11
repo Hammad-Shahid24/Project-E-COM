@@ -50,6 +50,9 @@
             }
         },
         "homepage": {
+            "featured": {
+                "heading": "Our Featured Collections"
+            },
             "services": {
                 "shipping": "SHIPPING",
                 "shippingdetail": "Shipping all over the world",
@@ -65,6 +68,16 @@
                 "detail": "Subscribe to our newsletter now and stay up-to-date with new collections, the latest deals.",
                 "email": "Your email address",
                 "subscribe": "Subscribe"
+            },
+            "bestsellers": {
+                "heading": "Best Sellers"
+            },
+            "marquee": {
+                "1": "Embrace Your Natural Radiance",
+                "2": "Pure Comfort, Lasting Results",
+                "3": "Simple Routine, Glowing Results",
+                "4": "Clean, Kind Formulas",
+                "5": "Gentle, Powerful Protection"
             }
         }
     }

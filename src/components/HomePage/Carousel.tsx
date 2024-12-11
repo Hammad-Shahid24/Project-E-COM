@@ -16,43 +16,30 @@ const Carousel: FC = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 3000,
     arrows: false,
   };
 
   return (
-    <div className="carousel-container relative w-full max-w-screen-2xl mx-auto  bg-gray-100 dark:bg-gray-900">
+    <div className="carousel-container relative w-full max-w-screen-2xl mx-auto bg-gray-100 dark:bg-gray-900">
       <Slider {...settings}>
-        {/* Slide 1 */}
-        <div className="slide">
-          <picture>
-            {/* Responsive Image Handling */}
-            <source
-              srcSet={responsiveImage1}
-              media="(max-width: 640px)" // Matches small screens
-            />
-            <img
-              src={image1}
-              alt="Slide 1"
-              className="w-full h-auto object-cover bg-blue-200 "
-            />
-          </picture>
-        </div>
-        {/* Slide 2 */}
-        <div className="slide">
-          <picture>
-            {/* Responsive Image Handling */}
-            <source
-              srcSet={responsiveImage2}
-              media="(max-width: 640px)" // Matches small screens
-            />
-            <img
-              src={image2}
-              alt="Slide 2"
-              className="w-full h-auto object-cover"
-            />
-          </picture>
-        </div>
+        {/* Slides */}
+        {[
+          { desktop: image1, mobile: responsiveImage1 },
+          { desktop: image2, mobile: responsiveImage2 },
+        ].map((image, index) => (
+          <div key={index} className="slide">
+            <picture>
+              <source srcSet={image.mobile} media="(max-width: 640px)" />
+              <img
+                src={image.desktop}
+                alt={`Slide ${index + 1}`}
+                className="w-full h-auto object-cover "
+                loading="lazy"
+              />
+            </picture>
+          </div>
+        ))}
       </Slider>
     </div>
   );

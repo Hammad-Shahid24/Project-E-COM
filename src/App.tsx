@@ -13,15 +13,20 @@ import Home from "./pages/Home";
 const App: FC = () => {
   return (
     <ErrorBoundary>
-      <Layout>
-        <Router>
+      <Router>
+        <Layout>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/about" element={<div>About</div>} />
+            <Route path="/new-arrivals" element={<div>About</div>} />
+            <Route path="/best-sellers" element={<div>About</div>} />
+            <Route path="/skin-care" element={<div>About</div>} />
+            <Route path="/face-mask" element={<div>About</div>} />
+            <Route path="/texture-and-makeup" element={<div>About</div>} />
+            <Route path="/contact-us" element={<div>About</div>} />
           </Routes>
-        </Router>
-        <ToastContainer />
-      </Layout>
+          <ToastContainer />
+        </Layout>
+      </Router>
     </ErrorBoundary>
   );
 };

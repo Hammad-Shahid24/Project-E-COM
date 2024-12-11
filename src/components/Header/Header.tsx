@@ -88,19 +88,24 @@ const Header: FC<HeaderProps> = ({
         </div>
         <div className=" hidden md:block mx-auto w-fit py-4">
           <HeaderItem
+            toPath="new-arrivals"
             label={t("header.newarrivals")}
             badge={t("header.new")}
             badgeColor="bg-red-600"
           />
           <HeaderItem
+            toPath="best-sellers"
             label={t("header.bestsellers")}
             badge={t("header.sale")}
             badgeColor="bg-cyan-500"
           />
-          <HeaderItem label={t("header.skincare")} />
-          <HeaderItem label={t("header.facemask")} />
-          <HeaderItem label={t("header.textureandmakeup")} />
-          <HeaderItem label={t("header.contactus")} />
+          <HeaderItem toPath="skin-care" label={t("header.skincare")} />
+          <HeaderItem toPath="face-mask" label={t("header.facemask")} />
+          <HeaderItem
+            toPath="texture-and-makeup"
+            label={t("header.textureandmakeup")}
+          />
+          <HeaderItem toPath="contact-us" label={t("header.contactus")} />
         </div>
       </div>
     </header>
