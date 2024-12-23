@@ -19,6 +19,39 @@
                 "shopNow": "Shop now"
             }
         },
+        "footer": {
+            "getintouch": {
+                "getintouch": "Get in touch",
+                "address": "4 Evington Valley Road, Leicester, United Kingdom"
+            },
+            "categories": {
+                "categories": "Categories",
+                "newarrivals": "New Arrivals",
+                "bestsellers": "Best Sellers",
+                "beauty": "Beauty",
+                "haircare": "Hair care"
+            },
+            "information": {
+                "information": "Information",
+                "privacypolicy": "Privacy Policy",
+                "refundpolicy": "Refund Policy",
+                "termsofservice": "Terms of Service"
+            },
+            "quicklinks": {
+                "quicklinks": "Quick Links",
+                "aboutus": "About us",
+                "contactus": "Contact us",
+                "faqs": "FAQs"
+            },
+            "newsletter": {
+                "newsletter": "Newsletter Signup",
+                "description": "Subscribe to our newsletter and get 10% off your first purchase"
+            },
+            "copyright": {
+                "copyright": "Copyright",
+                "rights": "All rights reserved"
+            }
+        },
         "drawers": {
             "navdrawer": {
                 "menu": "MENU",
@@ -80,7 +113,7 @@
                 "5": "Gentle, Powerful Protection"
             }
         },
-        "collectionsPage": {
+        "collectionspage": {
             "banners": {
                 "skincareheading": "Moisturizers",
                 "skincaredetail": "Say goodbye to dry, flaky skin and hello to a healthy, glowing complexion with our hydrating moisturizers. Our collection of luxurious creams and lotions is designed to nourish and protect your skin, leaving it feeling soft, supple, and radiant. Whether you have dry, oily, or sensitive skin, we have the perfect moisturizer for you.",
@@ -88,6 +121,14 @@
                 "facemaskdetail": "Target your skin’s specific needs with our powerful serums. Our serums are packed with potent ingredients to help reduce wrinkles, brighten your complexion, and improve your skin’s overall health. Whether you’re looking to hydrate, firm, or brighten, our serums will help you achieve your skincare goals.",
                 "textureandmakeupheading": "Cleansers",
                 "textureandmakeupdetail": "Start your skincare routine right with our gentle, effective cleansers. Our collection of face washes and cleansers removes dirt, oil, and makeup without stripping your skin's natural moisture. Whether you have oily, dry, or sensitive skin, we have the perfect cleanser to keep your skin clean, clear, and healthy."
+            },
+            "stickyfilter": {
+                "filters": "FILTERS",
+                "sortby": "SORT BY"
+            },
+            "pagination": {
+                "next": "Next",
+                "previous": "Previous"
             }
         }
     }

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import ErrorBoundary from "./components/ErrorBoundary";
 import Layout from "./components/Layout";
 import { ToastContainer } from "react-toastify";
@@ -10,8 +10,16 @@ import "./config/i18next";
 // pages
 import Home from "./pages/Home";
 import CollectionPage from "./pages/CollectionPages";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "./app/store";
+import { initializeAuth } from "./redux/auth/authSlice";
 
 const App: FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  useEffect(() => {
+    dispatch(initializeAuth());
+  }, [dispatch]);
+
   return (
     <ErrorBoundary>
       <Router>

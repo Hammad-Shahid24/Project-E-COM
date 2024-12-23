@@ -10,6 +10,9 @@ import { useTranslation } from "react-i18next";
 import HeaderItem from "./HeaderItem";
 import { useTheme } from "../../hooks/useTheme";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../app/store";
+import UserDropdown from "./UserDropdown";
 
 interface HeaderProps {
   AuthDrawerToggle: () => void;
@@ -25,6 +28,9 @@ const Header: FC<HeaderProps> = ({
   CartDrawerToggle,
 }) => {
   const { t } = useTranslation();
+  const { user, loading, error } = useSelector(
+    (state: RootState) => state.auth
+  );
 
   const { theme, toggleTheme } = useTheme();
 
@@ -32,7 +38,7 @@ const Header: FC<HeaderProps> = ({
     <header className="w-full bg-white dark:bg-gray-800 ">
       <div className="max-w-screen-xl mx-auto px-4 ">
         <div className="flex justify-between items-center py-4 relative md:border-b border-gray-300 ">
-          <div>
+          <div className="flex items-center gap-2">
             <h1 className="hidden md:block font-medium text-md text-black dark:text-white">
               {t("header.welcome")}
             </h1>
@@ -40,6 +46,21 @@ const Header: FC<HeaderProps> = ({
               onClick={NavDrawerToggle}
               className="md:hidden w-8 h-8 text-gray-900 dark:text-white cursor-pointer"
             />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="size-7 text-gray-900 dark:text-white cursor-pointer md:hidden"
+              onClick={SearchDrawerToggle}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+              />
+            </svg>
           </div>
           <Link to="/">
             <img
@@ -49,7 +70,7 @@ const Header: FC<HeaderProps> = ({
             />
           </Link>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <span className="hidden md:block">
               {theme === "dark" ? (
                 <IoSunnyOutline
@@ -69,8 +90,7 @@ const Header: FC<HeaderProps> = ({
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              // className="size-7 text-gray-900 dark:text-teal-500 cursor-pointer "
-              className="size-7 text-gray-900 dark:text-white cursor-pointer "
+              className="size-7 text-gray-900 dark:text-white cursor-pointer hidden md:block"
               onClick={SearchDrawerToggle}
             >
               <path
@@ -79,10 +99,14 @@ const Header: FC<HeaderProps> = ({
                 d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
               />
             </svg>
-            <GoPerson
-              onClick={AuthDrawerToggle}
-              className=" w-7 h-7  text-gray-900 dark:text-white cursor-pointer hidden md:block"
-            />
+            {user ? (
+              <UserDropdown />
+            ) : (
+              <GoPerson
+                onClick={AuthDrawerToggle}
+                className=" w-7 h-7  text-gray-900 dark:text-white cursor-pointer hidden md:block"
+              />
+            )}
             <FiShoppingCart
               onClick={CartDrawerToggle}
               className="block w-6 h-6  text-gray-800 dark:text-white cursor-pointer"

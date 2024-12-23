@@ -1,10 +1,14 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 // import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { validateEmail, validatePassword } from "../../../utils/validations";
 // import { EyeIcon, EyeSlashIcon, XMarkIcon } from "@heroicons/react/20/solid";
 // import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useSelector, useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "../../../app/store";
+import { recoverPassword } from "../../../redux/auth/authSlice";
+import Loading from "../../../shared/Loading";
 
 interface RecoverPasswordFormProps {
   gotoLogin: () => void;
@@ -15,46 +19,31 @@ const RecoverPasswordForm: FC<RecoverPasswordFormProps> = ({
   gotoLogin,
   onClose,
 }) => {
-  // const dispatch: AppDispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
+  const { loading, error: authError } = useSelector(
+    (state: RootState) => state.auth
+  );
   // const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password] = useState("");
   // const [passwordVisible, setPasswordVisible] = useState(false);
 
-  const handleLogin = () => {
-    console.log("login");
+  const handleSubmit = () => {
     if (!validateEmail(email)) {
       toast.error("Invalid email address", { autoClose: 500 });
       return;
     }
 
-    if (!validatePassword(password)) {
-      toast.error(
-        "Password must contain at least one number, one uppercase and lowercase letter, and at least 8 or more characters",
-        { autoClose: 500 }
-      );
-      return;
-    }
-
-    // const user = {
-    //   email,
-    //   password,
-    // };
-
-    // try {
-    //   dispatch(login(user)).then((result) => {
-    //     console.log(result);
-    //     if (login.fulfilled.match(result)) {
-    //       navigate("/map");
-    //     } else if (login.rejected.match(result)) {
-    //       toast.error(result.payload as string, { autoClose: 500 });
-    //     }
-    //   });
-    // } catch (error) {
-    //   console.log(error);
-    //   toast.error((error as Error).message, { autoClose: 500 });
-    // }
+    dispatch(recoverPassword(email)).then((result) => {
+      if (recoverPassword.fulfilled.match(result)) {
+        toast.success("Password reset email sent successfully", {
+          autoClose: 5000,
+        });
+      } else if (recoverPassword.rejected.match(result)) {
+        toast.error(result.payload as string, { autoClose: 5000 });
+      }
+    });
   };
 
   return (
@@ -100,10 +89,14 @@ const RecoverPasswordForm: FC<RecoverPasswordFormProps> = ({
         />
 
         <button
-          onClick={handleLogin}
+          onClick={handleSubmit}
           className="bg-slateteal mt-4 rounded-3xl text-white font-semibold hover:bg-opacity-75 transition-colors duration-300 p-2 w-full mb-2 dark:bg-teal-600 dark:hover:bg-teal-700"
         >
-          RESET PASSWORD
+          {loading ? (
+            <Loading className="text-white mx-auto" />
+          ) : (
+            "RESET PASSWORD"
+          )}{" "}
         </button>
 
         <p className="text-teal-900 text-sm mt-3 dark:text-teal-200">

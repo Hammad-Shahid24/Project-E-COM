@@ -19,6 +19,39 @@
                 "shopNow": "今すぐ購入"
             }
         },
+        "footer": {
+            "getintouch": {
+                "getintouch": "お問い合わせ",
+                "address": "4 Evington Valley Road, Leicester, イギリス"
+            },
+            "categories": {
+                "categories": "カテゴリー",
+                "newarrivals": "新着商品",
+                "bestsellers": "ベストセラー",
+                "beauty": "美容",
+                "haircare": "ヘアケア"
+            },
+            "information": {
+                "information": "情報",
+                "privacypolicy": "プライバシーポリシー",
+                "refundpolicy": "返金ポリシー",
+                "termsofservice": "利用規約"
+            },
+            "quicklinks": {
+                "quicklinks": "クイックリンク",
+                "aboutus": "私たちに関しては",
+                "contactus": "お問い合わせ",
+                "faqs": "よくある質問"
+            },
+            "newsletter": {
+                "newsletter": "ニュースレター登録",
+                "description": "ニュースレターに登録して、初回購入で10％オフを取得"
+            },
+            "copyright": {
+                "copyright": "著作権",
+                "rights": "全著作権所有"
+            }
+        },
         "drawers": {
             "navdrawer": {
                 "menu": "メニュー",
@@ -80,7 +113,7 @@
                 "5": "優しく強力な保護"
             }
         },
-        "collectionsPage": {
+        "collectionspage": {
             "banners": {
                 "skincareheading": "保湿剤",
                 "skincaredetail": "乾燥した肌にさよならを言い、私たちの保湿剤で健康で輝く肌を手に入れましょう。私たちの豪華なクリームとローションのコレクションは、肌を栄養し保護するように設計されており、柔らかくしなやかで輝く肌を実現します。乾燥肌、脂性肌、敏感肌のいずれであっても、あなたに最適な保湿剤があります。",
@@ -88,6 +121,14 @@
                 "facemaskdetail": "私たちの強力なセラムで肌の特定のニーズに対応しましょう。私たちのセラムは、しわを減らし、肌の明るさを増し、全体的な健康を改善するための有効成分が詰まっています。保湿、引き締め、明るさを求めている場合でも、私たちのセラムはあなたのスキンケア目標を達成するのに役立ちます。",
                 "textureandmakeupheading": "クレンザー",
                 "textureandmakeupdetail": "私たちの優しく効果的なクレンザーでスキンケアのルーチンを正しく始めましょう。私たちのフェイスウォッシュとクレンザーのコレクションは、肌の自然な水分を奪うことなく、汚れ、油、メイクを取り除きます。脂性肌、乾燥肌、敏感肌のいずれであっても、あなたの肌を清潔で健康に保つための完璧なクレンザーがあります。"
+            },
+            "stickyfilter": {
+                "filters": "フィルター",
+                "sortby": "並べ替え"
+            },
+            "pagination": {
+                "previous": "前へ",
+                "next": "次へ"
             }
         }
     }

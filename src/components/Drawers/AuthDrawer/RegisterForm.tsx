@@ -1,15 +1,12 @@
-import { FC, useState } from "react";
-// import { useDispatch } from "react-redux";
-// import { register } from "../redux/auth/authSlice";
+import { FC, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { clearError, signUp } from "../../../redux/auth/authSlice"; // Import signUp from the Redux slice
 import { validateEmail, validatePassword } from "../../../utils/validations";
 import { toast } from "react-toastify";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/20/solid";
-// import { Link, useNavigate } from "react-router-dom";
-// Firebase integration
-// import { auth } from "../../firebase.ts";
-// import { createUserWithEmailAndPassword } from "firebase/auth";
-// import { AppDispatch } from "../app/store.ts";
 import { motion } from "framer-motion";
+import { AppDispatch, RootState } from "../../../app/store";
+import Loading from "../../../shared/Loading";
 
 interface RegisterFormProps {
   gotoLogin: () => void;
@@ -17,16 +14,26 @@ interface RegisterFormProps {
 }
 
 const RegisterForm: FC<RegisterFormProps> = ({ gotoLogin, onClose }) => {
-  // const dispatch: AppDispatch = useDispatch();
-  // const navigate = useNavigate();
+  const dispatch: AppDispatch = useDispatch(); // Use the Redux dispatch function
+  const { loading, error: authError } = useSelector(
+    (state: RootState) => state.auth
+  ); // Get the loading state from the Redux store
 
-  // State management
-  const [fistName, setFirstName] = useState("");
+  const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [, setLoading] = useState(false); // For loading state
+
+  useEffect(() => {
+    if (authError && authError !== "") {
+      toast.error(authError);
+    }
+
+    return () => {
+      dispatch(clearError()); // Clear the error message when the component is unmounted
+    };
+  }, [authError]);
 
   const handleRegister = async () => {
     if (!validateEmail(email)) {
@@ -41,32 +48,22 @@ const RegisterForm: FC<RegisterFormProps> = ({ gotoLogin, onClose }) => {
       return;
     }
 
-    setLoading(true); // Set loading state when starting the registration
+    const additionalData = { firstName, lastName };
 
-    // try {
-    //   // Firebase registration
-    //   const userCredential = await createUserWithEmailAndPassword(
-    //     auth,
-    //     email,
-    //     password
-    //   );
-    //   const user = userCredential.user;
-
-    //   // Optionally, dispatch the Redux action if you want to store user info in Redux
-    //   dispatch(register({ email: user.email }));
-
-    //   toast.success("Registration successful!");
-    //   navigate("/welcome"); // Redirect to a welcome page or dashboard after registration
-    // } catch (error) {
-    //   setLoading(false); // Stop loading if there's an error
-    //   const errorMessage = (error as Error).message;
-    //   toast.error(errorMessage); // Display error message from Firebase
-    // }
+    // Dispatch the signUp action from Redux
+    await dispatch(signUp({ email, password, additionalData })).then(
+      (result) => {
+        if (signUp.fulfilled.match(result)) {
+          // Handle success
+          toast.success("Registration successful!");
+          onClose(); // Close the drawer
+        }
+      }
+    );
   };
 
   return (
-    <div className=" flex flex-col items-center justify-center">
-      {/* the below div contains the login text and the cross button */}
+    <div className="flex flex-col items-center justify-center">
       <div className="flex justify-between items-center w-full py-4 px-5 border-b border-gray-300 dark:border-gray-700">
         <h1 className="text-lg font-poppins text-teal-950 dark:text-teal-200">
           REGISTER
@@ -90,14 +87,13 @@ const RegisterForm: FC<RegisterFormProps> = ({ gotoLogin, onClose }) => {
         </motion.svg>
       </div>
 
-      {/* the below div contains the login form */}
-      <div className="w-full flex flex-col px-5 py-1 dark:bg-gray-800  pb-1.5 pt-4">
+      <div className="w-full flex flex-col px-5 py-1 dark:bg-gray-800 pb-1.5 pt-4">
         <label className="block text-base font-normal text-teal-900 dark:text-gray-300 pb-1.5">
           First Name
         </label>
         <motion.input
           type="text"
-          value={fistName}
+          value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
           className="mt-1 border border-gray-300 text-gray-500 dark:border-gray-700 dark:text-gray-100 rounded-sm p-2 w-full outline-none bg-white dark:bg-gray-700"
           whileFocus={{
@@ -161,12 +157,15 @@ const RegisterForm: FC<RegisterFormProps> = ({ gotoLogin, onClose }) => {
             )}
           </button>
         </div>
+
         <button
           onClick={handleRegister}
           className="bg-slate-700 rounded-3xl text-white font-semibold hover:bg-opacity-75 transition-colors duration-300 p-2 w-full mb-2 dark:bg-teal-600 dark:hover:bg-teal-700"
+          disabled={loading} // Disable the button when loading
         >
-          SIGN IN
+          {loading ? <Loading className="text-white mx-auto" /> : "SIGN UP"}{" "}
         </button>
+
         <p className="text-teal-900 text-sm pt-3 dark:text-teal-200">
           Already have an account?{" "}
           <span

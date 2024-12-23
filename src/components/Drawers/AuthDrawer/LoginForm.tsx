@@ -1,9 +1,12 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { validateEmail, validatePassword } from "../../../utils/validations";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/20/solid";
-// import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { clearError, signIn } from "../../../redux/auth/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../app/store";
+import Loading from "../../../shared/Loading";
 
 interface LoginFormProps {
   gotoRegister: () => void;
@@ -16,46 +19,39 @@ const LoginForm: FC<LoginFormProps> = ({
   gotoRecoverPassword,
   onClose,
 }) => {
-  // const dispatch: AppDispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
+  const { loading, error: authError } = useSelector(
+    (state: RootState) => state.auth
+  );
   // const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
 
-  const handleLogin = () => {
-    console.log("login");
+  useEffect(() => {
+    if (authError && authError !== "") {
+      toast.error(authError);
+    }
+
+    return () => {
+      dispatch(clearError()); // Clear the error message when the component is unmounted
+    };
+  }, [authError]);
+
+  const handleLogin = async () => {
     if (!validateEmail(email)) {
-      toast.error("Invalid email address", { autoClose: 500 });
+      toast.error("Invalid email address");
       return;
     }
 
-    if (!validatePassword(password)) {
-      toast.error(
-        "Password must contain at least one number, one uppercase and lowercase letter, and at least 8 or more characters",
-        { autoClose: 500 }
-      );
-      return;
-    }
-
-    // const user = {
-    //   email,
-    //   password,
-    // };
-
-    // try {
-    //   dispatch(login(user)).then((result) => {
-    //     console.log(result);
-    //     if (login.fulfilled.match(result)) {
-    //       navigate("/map");
-    //     } else if (login.rejected.match(result)) {
-    //       toast.error(result.payload as string, { autoClose: 500 });
-    //     }
-    //   });
-    // } catch (error) {
-    //   console.log(error);
-    //   toast.error((error as Error).message, { autoClose: 500 });
-    // }
+    await dispatch(signIn({ email, password })).then((result) => {
+      if (signIn.fulfilled.match(result)) {
+        toast.success("Login successful!");
+        onClose(); // Close the drawer
+        console.log("hi");
+      }
+    });
   };
 
   return (
@@ -131,7 +127,7 @@ const LoginForm: FC<LoginFormProps> = ({
           onClick={handleLogin}
           className="bg-slate-700 rounded-3xl text-white font-semibold hover:bg-opacity-75 transition-colors duration-300 p-2 w-full mb-2 dark:bg-teal-600 dark:hover:bg-teal-700"
         >
-          SIGN IN
+          {loading ? <Loading className="text-white mx-auto" /> : "SIGN IN"}{" "}
         </button>
         <p className="text-teal-900 text-sm pt-3 dark:text-teal-200">
           New customer?{" "}

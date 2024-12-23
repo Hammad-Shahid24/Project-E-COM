@@ -3,46 +3,62 @@ import { RiMapPinLine } from "react-icons/ri";
 import { BsEnvelope } from "react-icons/bs";
 import { HiOutlinePhone } from "react-icons/hi2";
 import FooterCopyrightComponent from "./FooterCopyrightComponent";
-
-const getInTouch = {
-  title: "Get in touch",
-  links: [
-    {
-      icon: <RiMapPinLine className="h-5 w-5 xl:h-8 xl:w-8" />,
-      name: "4 Evington Valley Road, Leicester, United Kingdom",
-    },
-    {
-      icon: <BsEnvelope className="h-5 w-5" />,
-      link: "info@tech.com",
-    },
-    {
-      icon: <HiOutlinePhone className="h-5 w-5" />,
-      name: "+447877381196",
-    },
-  ],
-};
-
-const footerLinks = [
-  {
-    title: "Categories",
-    links: ["New Arrivals", "Best Sellers", "Beauty", "Hair Care"],
-  },
-  {
-    title: "Information",
-    links: ["Privacy Policy", "Refund Policy", "Terms of Service"],
-  },
-  {
-    title: "Quick Links",
-    links: ["About Us", "Contact Us", "FAQs"],
-  },
-];
-
-const newsletter = {
-  title: "Newsletter Signup",
-  subtitle: "Subscribe to our newsletter and get 10% off your first purchase",
-};
+import { useTranslation } from "react-i18next";
 
 const Footer: FC = () => {
+  const { t } = useTranslation();
+
+  const getInTouch = {
+    title: t("footer.getintouch.getintouch"),
+    links: [
+      {
+        icon: <RiMapPinLine className="h-5 w-5 xl:h-8 xl:w-8" />,
+        name: t("footer.getintouch.address"),
+      },
+      {
+        icon: <BsEnvelope className="h-5 w-5" />,
+        link: "info@tech.com",
+      },
+      {
+        icon: <HiOutlinePhone className="h-5 w-5" />,
+        name: "+447877381196",
+      },
+    ],
+  };
+
+  const footerLinks = [
+    {
+      title: t("footer.categories.categories"),
+      links: [
+        t("footer.categories.newarrivals"),
+        t("footer.categories.bestsellers"),
+        t("footer.categories.beauty"),
+        t("footer.categories.haircare"),
+      ],
+    },
+    {
+      title: t("footer.information.information"),
+      links: [
+        t("footer.information.privacypolicy"),
+        t("footer.information.refundpolicy"),
+        t("footer.information.termsofservice"),
+      ],
+    },
+    {
+      title: t("footer.quicklinks.quicklinks"),
+      links: [
+        t("footer.quicklinks.aboutus"),
+        t("footer.quicklinks.contactus"),
+        t("footer.quicklinks.faqs"),
+      ],
+    },
+  ];
+
+  const newsletter = {
+    title: t("footer.newsletter.newsletter"),
+    subtitle: t("footer.newsletter.description"),
+  };
+
   return (
     <footer className="w-full bg-blue-50 dark:bg-gray-900 py-8">
       <div className="max-w-screen-xl mx-auto px-4 font-poppins ">
@@ -107,11 +123,11 @@ const Footer: FC = () => {
             <div className="flex  justify-between items-center rounded-full border border-teal-700 dark:border-gray-700 w-full mx-auto bg-white dark:bg-gray-800">
               <input
                 type="email"
-                placeholder="Your email address"
+                placeholder={t("homepage.discount.email")}
                 className=" w-full pl-4 md:pl-2 py-2.5 rounded-l-full bg-transparent focus:outline-none text-xs font-poppins text-teal-950 dark:text-white placeholder:text-teal-950 dark:placeholder:text-gray-400 placeholder:font-light"
               />
-              <button className=" mr-0.5 sm:mt-0  py-2 px-4 rounded-full bg-teal-700 text-xs text-white hover:bg-teal-600 transition-colors duration-300 bg-r">
-                Subscribe
+              <button className=" mr-0.5 sm:mt-0 min-w-20 text-center py-2  rounded-full bg-teal-700 text-xs text-white hover:bg-teal-600 transition-colors duration-300 bg-r">
+                {t("homepage.discount.subscribe")}
               </button>
             </div>
           </div>

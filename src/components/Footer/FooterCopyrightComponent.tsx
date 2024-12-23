@@ -1,11 +1,15 @@
 import { FC } from "react";
+import { useTranslation } from "react-i18next";
 
 const FooterCopyrightComponent: FC = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="mt-16 flex flex-col gap-y-4 xl:gap-y-0 xl:flex-row xl:justify-between items-center text-sm font-poppins text-teal-900 dark:text-gray-400">
       <div>
-        Copyright © {new Date().getFullYear()}{" "}
-        <span className="text-teal-700">Psytech</span>. All rights reserved.
+        {t("footer.copyright.copyright")} © {new Date().getFullYear()}{" "}
+        <span className="text-teal-700">Psytech</span>.{" "}
+        {t("footer.copyright.rights")}.
       </div>
       <div className="flex gap-x-2">
         {[

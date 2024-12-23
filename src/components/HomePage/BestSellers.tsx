@@ -3,10 +3,9 @@ import { useTranslation } from "react-i18next";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { dummyProducts } from "../../data/dummy";
-import a1 from "../../assets/BSellers/1a.jpg";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import "../../styles/carousel.css";
+import { Product } from "../../types/Shopping";
 
 // Custom arrow components
 const CustomPrevArrow = (props: any) => {
@@ -33,16 +32,72 @@ const CustomNextArrow = (props: any) => {
   );
 };
 
-const BestSellers: FC = () => {
+interface ProductCardProps {
+  product: Product;
+}
+
+const ProductCard: FC<ProductCardProps> = ({ product }) => {
+  return (
+    <div className="w-fit mx-auto  overflow-hidden relative min-h-52">
+      <img
+        src={product.images[0]}
+        alt="Product"
+        className="w-64 h-64 object-cover cursor-pointer"
+      />
+      <div className="pt-1 ">
+        <p className="text-sm max-w-64 font-medium font-poppins text-gray-700 dark:text-gray-200 hover:text-teal-700 dark:hover:text-gray-300 transition-colors duration-300 cursor-pointer leading-relaxed">
+          {product.name}
+        </p>
+
+        <div className="flex items-center pt-0.5 cursor-pointer">
+          {product?.discountPercentage ? (
+            <>
+              <p className="text-sm font-medium font-poppins text-gray-500 dark:text-white">
+                $
+                {product?.price -
+                  (product?.price * product?.discountPercentage) / 100}
+              </p>
+              <p className="text-sm font-poppins text-red-500 font-medium dark:text-gray-300 line-through ml-2">
+                ${product?.price}
+              </p>
+            </>
+          ) : (
+            <p className="text-sm font-medium font-poppins text-gray-500 dark:text-white">
+              ${product?.price}
+            </p>
+          )}
+
+          {product.discountPercentage && (
+            <p className="text-xs py-0.5 font-poppins bg-orange-500 text-white pl-1 pr-5 ml-2 absolute top-3 right-3">
+              -{product.discountPercentage}
+            </p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+interface BestSellersProps {
+  products: Product[];
+  // productError: string | null;
+  // productLoading: boolean;
+}
+
+const BestSellers: FC<BestSellersProps> = ({
+  products,
+  // productError,
+  // productLoading,
+}) => {
   const { t } = useTranslation();
 
   // Carousel settings
   const settings = {
     arrows: true,
     infinite: true,
-    speed: 500,
+    speed: 800,
     slidesToShow: 4,
-    slidesToScroll: 4,
+    slidesToScroll: 1,
     prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />,
     responsive: [
@@ -77,51 +132,10 @@ const BestSellers: FC = () => {
           {t("homepage.bestsellers.heading")}
         </h2>
         <Slider {...settings}>
-          {dummyProducts.map((product) => (
-            <ProductCard key={product.price + Math.random()} />
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} />
           ))}
         </Slider>
-      </div>
-    </div>
-  );
-};
-
-const ProductCard = () => {
-  const product = dummyProducts[0];
-  return (
-    <div className="w-fit mx-auto  shadow-md overflow-hidden relative">
-      <img
-        src={a1}
-        alt="Product"
-        className="w-64 h-64 object-cover cursor-pointer"
-      />
-      <div className="pt-1 ">
-        <p className="text-sm max-w-64 font-medium font-poppins text-gray-700 dark:text-gray-200 hover:text-teal-700 dark:hover:text-gray-300 transition-colors duration-300 cursor-pointer leading-relaxed">
-          {product.name}
-        </p>
-
-        <div className="flex items-center pt-0.5 cursor-pointer">
-          {product.salePrice ? (
-            <>
-              <p className="text-sm font-medium font-poppins text-gray-500 dark:text-white">
-                ${product.salePrice}
-              </p>
-              <p className="text-sm font-poppins text-red-500 font-medium dark:text-gray-300 line-through ml-2">
-                ${product.price}
-              </p>
-            </>
-          ) : (
-            <p className="text-sm font-medium font-poppins text-gray-500 dark:text-white">
-              ${product.price}
-            </p>
-          )}
-
-          {product.discount && (
-            <p className="text-xs py-0.5 font-poppins bg-orange-500 text-white pl-1 pr-5 ml-2 absolute top-3 right-3">
-              -{product.discount}
-            </p>
-          )}
-        </div>
       </div>
     </div>
   );

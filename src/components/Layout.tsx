@@ -40,7 +40,19 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
-      if (scrollTop > 400) {
+      const screenWidth = window.innerWidth;
+
+      let scrollThreshold = 400; // Default threshold
+
+      if (screenWidth >= 1024) {
+        scrollThreshold = 400; // For large screens
+      } else if (screenWidth >= 768) {
+        scrollThreshold = 500; // For medium screens
+      } else {
+        scrollThreshold = 250; // For small screens
+      }
+
+      if (scrollTop > scrollThreshold) {
         setStickyHeaderVisible(true);
       } else {
         setStickyHeaderVisible(false);
@@ -56,7 +68,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <ThemeProvider>
       <div className="w-full min-h-screen bg-white dark:bg-gray-900">
-        {/* <div className="max-w-screen-2xl mx-auto"> */}
         <div className="max-w-full mx-auto">
           <MiniHeader />
           <Header

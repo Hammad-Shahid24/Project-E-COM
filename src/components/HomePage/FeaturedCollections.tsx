@@ -1,10 +1,19 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import FCImage1 from "../../assets/FCollection/FCollection1.jpg";
-import FCImage2 from "../../assets/FCollection/FCollection2.webp";
-import FCImage3 from "../../assets/FCollection/FCollection3.jpg";
+import { Category } from "../../types/Shopping";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
-const FeaturedCollections: FC = () => {
+interface FeaturedCollectionsProps {
+  categories: Category[];
+  // categoryLoading: boolean;
+  // categoryError: string | null;
+}
+
+const FeaturedCollections: FC<FeaturedCollectionsProps> = ({
+  categories,
+  // categoryLoading,
+  // categoryError,
+}) => {
   const { t } = useTranslation();
 
   return (
@@ -20,36 +29,29 @@ const FeaturedCollections: FC = () => {
         <div className="flex max-w-4xl md:max-h-[29rem] gap-4 mx-auto flex-col md:flex-row dark:bg-gray-900 overflow-hidden ">
           <div className="w-full md:w-1/2 group overflow-hidden relative ">
             <img
-              src={FCImage2}
+              src={categories[0]?.image}
               alt="Featured Collection 1"
               className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110 cursor-pointer"
             />
-            <button className="bg-white  text-gray-900 text-sm font-medium py-1 px-3 absolute bottom-5 left-1/2 transform -translate-x-1/2">
-              Face Care
+            <button className="bg-white text-gray-900 text-sm font-medium py-1 px-3 absolute bottom-5 left-1/2 transform -translate-x-1/2 transition-all duration-300 ease-in-out hover:bg-teal-700 hover:text-white active:opacity-75">
+              {categories[0]?.name}
             </button>
           </div>
 
           <div className="w-full md:w-1/2 flex flex-col justify-center gap-4 ">
-            <div className="w-full group overflow-hidden relative">
-              <img
-                src={FCImage1}
-                alt="Featured Collection 2"
-                className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110 cursor-pointer"
-              />
-              <button className="bg-white  text-gray-900  text-sm font-medium py-1 px-3 absolute bottom-5 left-1/2 transform -translate-x-1/2">
-                Face Care
-              </button>
-            </div>
-            <div className="w-full group overflow-hidden relative">
-              <img
-                src={FCImage3}
-                alt="Featured Collection 3"
-                className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110 cursor-pointer"
-              />
-              <button className="bg-white text-gray-900 text-sm font-medium py-1 px-3 absolute bottom-5 left-1/2 transform -translate-x-1/2">
-                Face Care
-              </button>
-            </div>
+            {categories.slice(1, 3).map((category) => (
+              <div key={category.id} className="w-full group overflow-hidden relative">
+                <img
+                  src={category.image}
+                  alt="Featured Collection 2"
+                  className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110 cursor-pointer"
+                />
+                <button className="bg-white text-gray-900 text-sm font-medium py-1 px-3 absolute bottom-5 left-1/2 transform -translate-x-1/2 transition-all duration-300 ease-in-out hover:bg-teal-700 hover:text-white active:opacity-75">
+                  {category.name}
+                </button>
+              </div>
+            ))}
+           
           </div>
         </div>
       </div>
