@@ -1,7 +1,7 @@
 import { FC, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Category } from "../../types/Shopping";
-import { LazyLoadImage } from "react-lazy-load-image-component";
+import { useNavigate } from "react-router-dom";
 
 interface FeaturedCollectionsProps {
   categories: Category[];
@@ -15,6 +15,18 @@ const FeaturedCollections: FC<FeaturedCollectionsProps> = ({
   // categoryError,
 }) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
+
+    const handleNavigate = (category: Category) => {
+    // Convert to lowercase, replace spaces and special characters with hyphens
+    const formattedCategoryName = category.name
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-') // Replace non-alphanumeric characters with hyphens
+      .replace(/^-+|-+$/g, ''); // Remove leading and trailing hyphens
+  
+    navigate(`/${formattedCategoryName}/${category.id}`);
+  };
 
   return (
     <div className="w-full py-12 font-poppins bg-[#fff5ee] dark:bg-gray-900">
@@ -27,7 +39,9 @@ const FeaturedCollections: FC<FeaturedCollectionsProps> = ({
         </div>
 
         <div className="flex max-w-4xl md:max-h-[29rem] gap-4 mx-auto flex-col md:flex-row dark:bg-gray-900 overflow-hidden ">
-          <div className="w-full md:w-1/2 group overflow-hidden relative ">
+          <div
+          onClick={() => handleNavigate(categories[0])}
+           className="w-full md:w-1/2 group overflow-hidden relative ">
             <img
               src={categories[0]?.image}
               alt="Featured Collection 1"
@@ -40,7 +54,9 @@ const FeaturedCollections: FC<FeaturedCollectionsProps> = ({
 
           <div className="w-full md:w-1/2 flex flex-col justify-center gap-4 ">
             {categories.slice(1, 3).map((category) => (
-              <div key={category.id} className="w-full group overflow-hidden relative">
+              <div
+              onClick={() => handleNavigate(category)}
+              key={category.id} className="w-full group overflow-hidden relative">
                 <img
                   src={category.image}
                   alt="Featured Collection 2"

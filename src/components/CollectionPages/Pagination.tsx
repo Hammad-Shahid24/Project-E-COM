@@ -1,32 +1,65 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 interface PaginationProps {
+  items: any[];
+  totalItems: number;
+  pageSize: number;
+  setCurrentPageItems: (items: any[]) => void;
+  fetchMore: () => Promise<void>;
   currentPage: number;
-  totalPages: number;
-  onPageChange: (page: number) => void;
+  setCurrentPage: (page: number) => void;
 }
 
 const Pagination: FC<PaginationProps> = ({
+  items,
+  totalItems,
+  pageSize,
+  setCurrentPageItems,
+  fetchMore,
   currentPage,
-  totalPages,
-  onPageChange,
+  setCurrentPage,
 }) => {
   const { t } = useTranslation();
 
-  const handlePageChange = (page: number) => {
-    if (page >= 1 && page <= totalPages) {
-      onPageChange(page);
+  const totalPages = Math.ceil(totalItems / pageSize);
+
+  useEffect(() => {
+    setCurrentPageItems(
+      items.slice((currentPage - 1) * pageSize, currentPage * pageSize)
+    );
+  }, [currentPage, items, pageSize, setCurrentPageItems]);
+
+  const handleNext = async () => {
+
+    console.log(items.length <= (currentPage + 1) * pageSize);
+    console.log(items.length < totalItems);
+    if (currentPage < totalPages) {
+      if (
+        items.length < (currentPage + 1) * pageSize &&
+        items.length < totalItems
+      ) {
+        await fetchMore();
+      }
+      setCurrentPage(currentPage + 1);
     }
   };
+
+  const handlePrevious = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  
 
   return (
     <div className="flex justify-center items-center space-x-2 mt-16 font-poppins">
       {/* Previous Button */}
       <button
-        onClick={() => handlePageChange(currentPage - 1)}
+        onClick={handlePrevious}
         disabled={currentPage === 1}
-        className={`px-3 text-sm dark:bg-gray-700 text-gray-500 hover:text-gray-400 transition-all duration-300 dark:text-gray-200 rounded-md ${
+        className={`px-3 py-1 text-sm dark:bg-gray-700 text-gray-500 hover:text-gray-400 transition-all duration-300 dark:text-gray-200 rounded-md ${
           currentPage === 1 ? "cursor-default opacity-0" : ""
         }`}
       >
@@ -34,27 +67,23 @@ const Pagination: FC<PaginationProps> = ({
       </button>
 
       {/* Page Numbers */}
-      <div className="flex space-x-2">
-        {Array.from({ length: totalPages }, (_, index) => (
-          <button
-            key={index}
-            onClick={() => handlePageChange(index + 1)}
-            className={`px-1.5 py-0.5 border ${
+  <span className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200">
+    Page {currentPage} of {totalPages}
+  </span>
+      {/* <div className={`px-1.5 py-0.5 border ${
               currentPage === index + 1
                 ? "border-gray-900  text-gray-700 cursor-default"
                 : "border-transparent dark:border-gray-700  text-gray-700 dark:text-gray-200 hover:text-gray-400 duration-300 transition-all"
             }`}
-          >
-            {index + 1}
-          </button>
-        ))}
-      </div>
+            >
+            Page {currentPage} of {totalPages}
+      </div> */}
 
       {/* Next Button */}
       <button
-        onClick={() => handlePageChange(currentPage + 1)}
+        onClick={handleNext}
         disabled={currentPage === totalPages}
-        className={`px-3 text-sm dark:bg-gray-700 text-gray-500 hover:text-gray-400 transition-all duration-300 dark:text-gray-200 rounded-md ${
+        className={`px-3 py-1 text-sm dark:bg-gray-700 text-gray-500 hover:text-gray-400 transition-all duration-300 dark:text-gray-200 rounded-md ${
           currentPage === totalPages ? "cursor-default opacity-0" : ""
         }`}
       >

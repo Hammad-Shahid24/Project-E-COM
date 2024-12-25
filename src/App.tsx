@@ -10,6 +10,8 @@ import "./config/i18next";
 // pages
 import Home from "./pages/Home";
 import CollectionPage from "./pages/CollectionPages";
+import ProductDetailsPage from "./pages/ProductDetailsPage";
+import CheckoutPage from "./pages/CheckoutPage";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "./app/store";
 import { initializeAuth } from "./redux/auth/authSlice";
@@ -18,7 +20,7 @@ const App: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     dispatch(initializeAuth());
-  }, [dispatch]);
+  }, []);
 
   return (
     <ErrorBoundary>
@@ -28,9 +30,11 @@ const App: FC = () => {
             <Route path="/" element={<Home />} />
             <Route path="/new-arrivals" element={<CollectionPage />} />
             <Route path="/best-sellers" element={<CollectionPage />} />
-            <Route path="/skin-care" element={<CollectionPage />} />
+            <Route path="/skin-care/*" element={<CollectionPage />} />            
             <Route path="/face-mask" element={<CollectionPage />} />
             <Route path="/texture-and-makeup" element={<CollectionPage />} />
+            <Route path="/checkout" element={<CheckoutPage/>} />
+            <Route path="/product/*" element={<ProductDetailsPage/>} />
             <Route path="/contact-us" element={<div>contact uadfs </div>} />
           </Routes>
           <ToastContainer />

@@ -45,18 +45,21 @@ const Home: FC = () => {
     if (!categories.length) {
       dispatch(fetchAllCategories());
     }
-    dispatch(
-      fetchFilteredProducts({
-        filters: {
-          tags: ["Best Sellers"],
-        },
-        pageSize: 8,
-      })
-    );
+    if (!products.length) {
+      dispatch(
+        fetchFilteredProducts({
+          filters: {
+            tags: ["Best Sellers"],
+          },
+          pageSize: 8,
+        })
+      );
+    }
+   
 
-    return () => {
-      dispatch(resetProducts());
-    };
+    // return () => {
+    //   dispatch(resetProducts());
+    // };
   }, []);
 
   useEffect(() => {

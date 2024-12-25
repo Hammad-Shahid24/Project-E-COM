@@ -95,7 +95,7 @@ const BestSellers: FC<BestSellersProps> = ({
   const settings = {
     arrows: true,
     infinite: true,
-    speed: 800,
+    speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
     prevArrow: <CustomPrevArrow />,
