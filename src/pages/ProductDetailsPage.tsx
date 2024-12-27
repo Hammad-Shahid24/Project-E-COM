@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../app/store";
-import { fetchProductById } from "../redux/products/productSlice";
+import { fetchProductById, resetProduct } from "../redux/products/productSlice";
 import Lightbox from "react-spring-lightbox";
 import Loading from "../shared/Loading";
 import { addCartItem, resetError } from "../redux/cart/cartSlice";
@@ -37,10 +37,12 @@ const ProductDetailsPage: FC = () => {
 
 
   useEffect(() => {
-    if (productId && product === null) {
       dispatch(fetchProductById(productId));
+
+    return () => {
+      dispatch(resetProduct());
     }
-  }, [productId, dispatch, location]);
+  }, []);
 
   useEffect(() => {
     if (error && error.length > 0 && loading === false) {
