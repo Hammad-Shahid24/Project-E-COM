@@ -51,11 +51,9 @@ const StickyFilterDropdownProps: React.FC<StickyFilterDropdownProps> = ({
     );
   };
 
-  
-
   return (
     <div
-      className="relative flex items-center border-l border-gray-300 dark:border-gray-600"
+      className="relative flex items-center border-r border-gray-300 dark:border-gray-600"
       ref={dropdownRef}
     >
       {/* Dropdown Button */}
