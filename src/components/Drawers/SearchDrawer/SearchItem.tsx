@@ -14,8 +14,8 @@ interface  SearchItemProps {
 
 const SearchItem: FC<SearchItemProps> = ({
   products,
-  loading,
-  error,
+  // loading,
+  // error,
   onClose
 
 }) => {

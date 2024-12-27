@@ -13,7 +13,7 @@ interface SearchDrawerProps {
 const CartDrawer: FC<SearchDrawerProps> = ({ isOpen, onClose }) => {
   const dispatch = useDispatch<AppDispatch>();
   const { user } = useSelector((state: RootState) => state.auth);
-  const {cart, loading, error} = useSelector((state: RootState) => state.cart);
+  const {cart, error} = useSelector((state: RootState) => state.cart);
 
   useEffect(() => {
     if (user) {

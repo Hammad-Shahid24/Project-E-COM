@@ -20,7 +20,7 @@ const RecoverPasswordForm: FC<RecoverPasswordFormProps> = ({
   onClose,
 }) => {
   const dispatch: AppDispatch = useDispatch();
-  const { loading, error: authError } = useSelector(
+  const { loading } = useSelector(
     (state: RootState) => state.auth
   );
   // const navigate = useNavigate();

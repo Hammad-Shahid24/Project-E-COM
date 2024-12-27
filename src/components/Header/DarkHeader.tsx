@@ -32,7 +32,7 @@ const DarkHeader: FC<HeaderProps> = ({
 }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
-  const { user, loading, error } = useSelector(
+  const { user,  } = useSelector(
     (state: RootState) => state.auth
   );
   const { categories } = useSelector((state: RootState) => state.categories);

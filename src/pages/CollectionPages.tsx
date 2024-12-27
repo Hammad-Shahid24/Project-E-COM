@@ -28,7 +28,7 @@ const CollectionPages: FC = () => {
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
   const [filters, setFilters] = useState<string[]>([]);
 
-  const { products, loading, error, totalProducts } = useSelector((state: RootState) => state.products);
+  const { products, loading, totalProducts } = useSelector((state: RootState) => state.products);
 
   useEffect(() => {
     window.scrollTo(0, 0);

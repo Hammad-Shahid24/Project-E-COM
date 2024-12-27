@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState, AppDispatch } from "../../app/store";
+import { useSelector,  } from "react-redux";
+import { RootState,  } from "../../app/store";
 import Loading from "../../shared/MiniLoading";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -17,7 +17,7 @@ const schema = yup.object().shape({
 });
 
 const ProfileForm: FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  // const dispatch = useDispatch<AppDispatch>();
   const { user, loading } = useSelector((state: RootState) => state.auth);
   const [success, setSuccess] = useState(false);
 
@@ -33,7 +33,7 @@ const ProfileForm: FC = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<ProfileFormInputs> = async (data) => {
+  const onSubmit: SubmitHandler<ProfileFormInputs> = async () => {
     setSuccess(false);
 
     try {

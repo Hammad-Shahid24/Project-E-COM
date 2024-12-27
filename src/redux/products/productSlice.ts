@@ -43,7 +43,7 @@ export const fetchAllProducts = createAsyncThunk(
         products,
         lastVisible: updatedLastVisible,
         totalProducts,
-      } = await fetchProducts(lastVisible, categoryId, sortField, sortOrder, pageSize );
+      } = await fetchProducts(lastVisible, categoryId, sortField, sortOrder, pageSize);
 
       // Return products and the updated lastVisible value
       return {
@@ -75,18 +75,18 @@ export const fetchFilteredProducts = createAsyncThunk(
         tags?: string[];
       };
     },
-    { rejectWithValue, getState }
+    { rejectWithValue }
   ) => {
     try {
 
 
       // Fetch filtered products using service function
-      const { products,totalProducts } =
+      const { products, totalProducts } =
         await getFilteredProducts(
           filters,
         );
 
-      return { products,  totalProducts };
+      return { products, totalProducts };
     } catch (error: any) {
       let errorMessage = "An error occurred while fetching filtered products.";
       if (error instanceof Error) {
