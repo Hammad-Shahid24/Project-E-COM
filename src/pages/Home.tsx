@@ -16,7 +16,7 @@ import {
 } from "../redux/categories/categorySlice";
 import {
   clearError as clearProductError,
-  fetchAllProducts,
+  fetchFilteredProducts,
 } from "../redux/products/productSlice";
 import { toast } from "react-toastify";
 import Loading from "../shared/Loading";
@@ -43,14 +43,13 @@ const Home: FC = () => {
     if (!categories.length) {
       dispatch(fetchAllCategories());
     }
-    if (!products.length) {
       dispatch(
-        fetchAllProducts({
-          categoryId: categories[0]?.id || "",
-          pageSize: 8,
+        fetchFilteredProducts({
+          filters: {
+            tags: ["Best Sellers"],
+          },
         })
       );
-    }
    
 
     // return () => {
