@@ -2,12 +2,16 @@ import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "../redux/auth/authSlice";
 import categoryReducer from "../redux/categories/categorySlice";
 import productReducer from "../redux/products/productSlice";
+import cartReducer from "../redux/cart/cartSlice"
+import orderSlice from "../redux/orders/orderSlice";
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
     categories: categoryReducer,
     products: productReducer,
+    cart: cartReducer,
+    orders: orderSlice
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -4,9 +4,11 @@ import { BsEnvelope } from "react-icons/bs";
 import { HiOutlinePhone } from "react-icons/hi2";
 import FooterCopyrightComponent from "./FooterCopyrightComponent";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 const Footer: FC = () => {
   const { t } = useTranslation();
+
 
   const getInTouch = {
     title: t("footer.getintouch.getintouch"),
@@ -27,13 +29,21 @@ const Footer: FC = () => {
   };
 
   const footerLinks = [
+    // {
+    //   title: t("footer.categories.categories"),
+    //   links: [
+    //     t("footer.categories.newarrivals"),
+    //     t("footer.categories.bestsellers"),
+    //     t("footer.categories.beauty"),
+    //     t("footer.categories.haircare"),
+    //   ],
+    // },
     {
-      title: t("footer.categories.categories"),
+      title: t("footer.quicklinks.quicklinks"),
       links: [
-        t("footer.categories.newarrivals"),
-        t("footer.categories.bestsellers"),
-        t("footer.categories.beauty"),
-        t("footer.categories.haircare"),
+        t("footer.quicklinks.aboutus"),
+        t("footer.quicklinks.contactus"),
+        t("footer.quicklinks.faqs"),
       ],
     },
     {
@@ -99,13 +109,13 @@ const Footer: FC = () => {
               <ul className="space-y-2">
                 {section.links.map((link, linkIndex) => (
                   <li key={linkIndex}>
-                    <a
-                      href="#"
+                    <Link
+                      to={`/${link.toLowerCase()}`.replace(/\s/g, "")}
                       className="text-sm text-teal-900 dark:text-gray-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors duration-300"
                       aria-label={`Go to ${link}`}
                     >
                       {link}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>

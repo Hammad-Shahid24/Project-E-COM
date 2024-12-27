@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import logo from "../../assets/logo.png";
 import darkLogo from "../../assets/Psytech.svg";
 import { GoPerson } from "react-icons/go";
@@ -6,13 +6,19 @@ import { FiShoppingCart } from "react-icons/fi";
 import { FiMoon } from "react-icons/fi";
 import { IoSunnyOutline } from "react-icons/io5";
 import { HiBars3CenterLeft } from "react-icons/hi2";
+import { RiLogoutCircleLine } from "react-icons/ri";
 import { useTranslation } from "react-i18next";
 import HeaderItem from "./HeaderItem";
 import { useTheme } from "../../hooks/useTheme";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../app/store";
-import UserDropdown from "./UserDropdown";
+import { AppDispatch, RootState } from "../../app/store";
+import UserPic from "./UserDropdown";
+import { fetchAllCategories } from "../../redux/categories/categorySlice";
+import { getCategoryId } from "../../utils/getCategoryIdByName";
+import { Tooltip } from 'react-tooltip'
+import { logOut } from "../../redux/auth/authSlice";
+
 
 interface HeaderProps {
   AuthDrawerToggle: () => void;
@@ -28,17 +34,35 @@ const Header: FC<HeaderProps> = ({
   CartDrawerToggle,
 }) => {
   const { t } = useTranslation();
+  const dispatch = useDispatch<AppDispatch>();
   const { user, loading, error } = useSelector(
     (state: RootState) => state.auth
   );
+  const { categories } = useSelector((state: RootState) => state.categories);
+
 
   const { theme, toggleTheme } = useTheme();
+
+  useEffect(() => {
+    if (categories.length === 0 && !loading) {
+      dispatch(fetchAllCategories());
+    }
+  }, []);
+
 
   return (
     <header className="w-full bg-white dark:bg-gray-800 ">
       <div className="max-w-screen-xl mx-auto px-4 ">
         <div className="flex justify-between items-center py-4 relative md:border-b border-gray-300 ">
           <div className="flex items-center gap-2">
+            <RiLogoutCircleLine
+
+            data-tooltip-id="my-tooltip" data-tooltip-content="Log Out?"
+              onClick={() => {
+                dispatch(logOut());
+              }}
+              className="hidden md:block w-5 h-5 text-gray-900 dark:text-white cursor-pointer"
+            />
             <h1 className="hidden md:block font-medium text-md text-black dark:text-white">
               {t("header.welcome")}
             </h1>
@@ -52,7 +76,7 @@ const Header: FC<HeaderProps> = ({
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="size-7 text-gray-900 dark:text-white cursor-pointer md:hidden"
+              className="size-7 text-gray-900 dark:text-white cursor-pointer md:hidden ml-1"
               onClick={SearchDrawerToggle}
             >
               <path
@@ -100,11 +124,12 @@ const Header: FC<HeaderProps> = ({
               />
             </svg>
             {user ? (
-              <UserDropdown />
+              <UserPic />
             ) : (
+              
               <GoPerson
                 onClick={AuthDrawerToggle}
-                className=" w-7 h-7  text-gray-900 dark:text-white cursor-pointer hidden md:block"
+                className=" w-7 h-7  text-gray-900 dark:text-white cursor-pointer"
               />
             )}
             <FiShoppingCart
@@ -115,26 +140,35 @@ const Header: FC<HeaderProps> = ({
         </div>
         <div className=" hidden md:block mx-auto w-fit py-4">
           <HeaderItem
-            toPath="new-arrivals"
+            toPath={`new-arrivals/${getCategoryId("Skin Care", categories)}`}
             label={t("header.newarrivals")}
             badge={t("header.new")}
             badgeColor="bg-red-600"
           />
           <HeaderItem
-            toPath="best-sellers"
+            toPath={`best-sellers/${getCategoryId("Skin Care", categories)}`}
             label={t("header.bestsellers")}
             badge={t("header.sale")}
             badgeColor="bg-cyan-500"
           />
-          <HeaderItem toPath="skin-care" label={t("header.skincare")} />
-          <HeaderItem toPath="face-mask" label={t("header.facemask")} />
           <HeaderItem
-            toPath="texture-and-makeup"
+            toPath={`skin-care/${getCategoryId("Skin Care", categories)}`
+            }
+            label={t("header.skincare")} />
+          <HeaderItem
+            toPath={`face-mask/${getCategoryId("Face Mask", categories)}`
+          }
+            label={t("header.facemask")} />
+          <HeaderItem
+            toPath={`texture-makeup/${getCategoryId("Texture & Makeup", categories)}`
+          }
             label={t("header.textureandmakeup")}
           />
-          <HeaderItem toPath="contact-us" label={t("header.contactus")} />
+          <HeaderItem toPath="contactus" label={t("header.contactus")} />
+
         </div>
       </div>
+          <Tooltip id="my-tooltip" />
     </header>
   );
 };

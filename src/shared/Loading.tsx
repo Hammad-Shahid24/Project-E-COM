@@ -1,24 +1,13 @@
-import { FC } from "react";
-import { AiOutlineLoading } from "react-icons/ai";
+import React from 'react';
+import Lottie from 'lottie-react';
+import LoadingAnimation from '../assets/loading.json';
 
-interface LoadingProps {
-  size?: number;
-  color?: string;
-  className?: string;
-}
+      const Loading: React.FC = () => {
+        return (
+          <div className="w-full h-screen flex items-center justify-center">
+            <Lottie animationData={LoadingAnimation} loop={true} />
+          </div>
+        );
+      }
 
-const Loading: FC<LoadingProps> = ({
-  size = 24,
-  color = "currentColor",
-  className = "",
-}) => {
-  return (
-    <AiOutlineLoading
-      className={`animate-spin ${className}`}
-      size={size}
-      color={color}
-    />
-  );
-};
-
-export default Loading;
+      export default Loading;

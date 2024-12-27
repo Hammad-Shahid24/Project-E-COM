@@ -1,6 +1,8 @@
 import { FC } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import SearchDrawerContent from "./SearchDrawerContent";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../app/store";
 
 interface SearchDrawerProps {
   isOpen: boolean;
@@ -8,6 +10,8 @@ interface SearchDrawerProps {
 }
 
 const SearchDrawer: FC<SearchDrawerProps> = ({ isOpen, onClose }) => {
+
+  const {products, loading, error} = useSelector((state: RootState) => state.products);
   return (
     <>
       {/* Backdrop */}
@@ -37,7 +41,7 @@ const SearchDrawer: FC<SearchDrawerProps> = ({ isOpen, onClose }) => {
             className="fixed top-0 right-0 w-80 h-full bg-white dark:bg-gray-800 shadow-lg z-50"
           >
             <div className="relative h-full">
-              <SearchDrawerContent onClose={onClose} />
+              <SearchDrawerContent products={products} loading={loading} error={error} onClose={onClose} />
             </div>
           </motion.div>
         )}

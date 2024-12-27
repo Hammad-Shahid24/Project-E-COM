@@ -1,6 +1,12 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import NavDrawerContent from "./NavDrawerContent";
+// import { getCategoryId } from "../../../utils/getCategoryIdByName";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../app/store";
+import { fetchAllCategories } from "../../../redux/categories/categorySlice";
+import { User } from "../../../types/Auth";
+
 
 interface NavDrawerProps {
   isOpen: boolean;
@@ -15,6 +21,16 @@ const NavDrawer: FC<NavDrawerProps> = ({
   toggleAuthDrawer,
   toggleSearchDrawer,
 }) => {
+  const dispatch = useDispatch<AppDispatch>();
+  const { categories } = useSelector((state: RootState) => state.categories);
+  const user = useSelector((state: RootState) => state.auth.user as User | null);
+
+  useEffect(() => {
+    if (categories.length === 0) {
+      dispatch(fetchAllCategories());
+    }
+  })
+
   return (
     <>
       {/* Backdrop */}
@@ -48,6 +64,8 @@ const NavDrawer: FC<NavDrawerProps> = ({
                 toggleAuthDrawer={toggleAuthDrawer}
                 toggleSearchDrawer={toggleSearchDrawer}
                 onClose={onClose}
+                categories={categories}
+                user={user}
               />
             </div>
           </motion.div>

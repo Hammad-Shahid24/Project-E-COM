@@ -1,12 +1,13 @@
 import { FC, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { validateEmail, validatePassword } from "../../../utils/validations";
+import { validateEmail,  } from "../../../utils/validations";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/20/solid";
 import { motion } from "framer-motion";
 import { clearError, signIn } from "../../../redux/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../app/store";
-import Loading from "../../../shared/Loading";
+// import Loading from "../../../shared/Loading";
+import MiniLoading from "../../../shared/MiniLoading";
 
 interface LoginFormProps {
   gotoRegister: () => void;
@@ -127,7 +128,7 @@ const LoginForm: FC<LoginFormProps> = ({
           onClick={handleLogin}
           className="bg-slate-700 rounded-3xl text-white font-semibold hover:bg-opacity-75 transition-colors duration-300 p-2 w-full mb-2 dark:bg-teal-600 dark:hover:bg-teal-700"
         >
-          {loading ? <Loading className="text-white mx-auto" /> : "SIGN IN"}{" "}
+          {loading ? <MiniLoading/> : "SIGN IN"}{" "}
         </button>
         <p className="text-teal-900 text-sm pt-3 dark:text-teal-200">
           New customer?{" "}

@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/20/solid";
 import { motion } from "framer-motion";
 import { AppDispatch, RootState } from "../../../app/store";
-import Loading from "../../../shared/Loading";
+import Loading from "../../../shared/MiniLoading";
 
 interface RegisterFormProps {
   gotoLogin: () => void;
@@ -163,7 +163,7 @@ const RegisterForm: FC<RegisterFormProps> = ({ gotoLogin, onClose }) => {
           className="bg-slate-700 rounded-3xl text-white font-semibold hover:bg-opacity-75 transition-colors duration-300 p-2 w-full mb-2 dark:bg-teal-600 dark:hover:bg-teal-700"
           disabled={loading} // Disable the button when loading
         >
-          {loading ? <Loading className="text-white mx-auto" /> : "SIGN UP"}{" "}
+          {loading ? <Loading /> : "SIGN UP"}{" "}
         </button>
 
         <p className="text-teal-900 text-sm pt-3 dark:text-teal-200">

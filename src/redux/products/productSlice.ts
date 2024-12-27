@@ -69,38 +69,24 @@ export const fetchFilteredProducts = createAsyncThunk(
   async (
     {
       filters,
-      pageSize,
-      sortField = "createdAt",
-      sortOrder = "desc",
     }: {
       filters: {
         categoryId?: string;
         tags?: string[];
-        minPrice?: number;
-        maxPrice?: number;
-        discountOnly?: boolean;
       };
-      pageSize: number;
-      sortField?: string;
-      sortOrder?: "asc" | "desc";
     },
     { rejectWithValue, getState }
   ) => {
     try {
-      const state = getState() as { products: ProductState };
-      const lastVisible = state.products.lastVisible;
+
 
       // Fetch filtered products using service function
-      const { products, lastVisible: updatedLastVisible, totalProducts } =
+      const { products,totalProducts } =
         await getFilteredProducts(
           filters,
-          lastVisible,
-          pageSize,
-          sortField,
-          sortOrder
         );
 
-      return { products, lastVisible: updatedLastVisible, totalProducts };
+      return { products,  totalProducts };
     } catch (error: any) {
       let errorMessage = "An error occurred while fetching filtered products.";
       if (error instanceof Error) {
@@ -182,19 +168,7 @@ const productSlice = createSlice({
       })
       .addCase(fetchFilteredProducts.fulfilled, (state, action) => {
         state.loading = false;
-
-        // Filter out duplicates by ID
-        const newProducts = action.payload.products.filter(
-          (newProduct: Product) =>
-            !state.products.some((product) => product.id === newProduct.id)
-        );
-
-        // Add unique products to state
-        state.products = state.products.concat(newProducts);
-        state.lastVisible = action.payload.lastVisible as QueryDocumentSnapshot<
-          Product,
-          DocumentData
-        > | null;
+        state.products = action.payload.products;
         state.totalProducts = action.payload.totalProducts;
       })
       .addCase(fetchFilteredProducts.rejected, (state, action) => {

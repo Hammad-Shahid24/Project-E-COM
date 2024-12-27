@@ -6,6 +6,8 @@ import "slick-carousel/slick/slick-theme.css";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import "../../styles/carousel.css";
 import { Product } from "../../types/Shopping";
+import { useNavigate } from "react-router-dom";
+import { saleValidRightNow } from "../../utils/saleValidRightNow";
 
 // Custom arrow components
 const CustomPrevArrow = (props: any) => {
@@ -37,8 +39,14 @@ interface ProductCardProps {
 }
 
 const ProductCard: FC<ProductCardProps> = ({ product }) => {
+  const navigate = useNavigate();
+  const formattedName = product.name.replace(/ /g, "-");
+
   return (
-    <div className="w-fit mx-auto  overflow-hidden relative min-h-52">
+    <div
+      onClick={() => navigate(`/product/${formattedName}/${product.id}`)}
+
+      className="w-fit mx-auto  overflow-hidden relative min-h-52">
       <img
         src={product.images[0]}
         alt="Product"
@@ -50,12 +58,15 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
         </p>
 
         <div className="flex items-center pt-0.5 cursor-pointer">
-          {product?.discountPercentage ? (
+          {saleValidRightNow(
+            product?.discountStartDate || new Date(),
+            product?.discountExpiryDate || new Date()
+          ) ? (
             <>
               <p className="text-sm font-medium font-poppins text-gray-500 dark:text-white">
                 $
                 {product?.price -
-                  (product?.price * product?.discountPercentage) / 100}
+                  (product?.price * (product?.discountPercentage ?? 0)) / 100}
               </p>
               <p className="text-sm font-poppins text-red-500 font-medium dark:text-gray-300 line-through ml-2">
                 ${product?.price}
@@ -67,7 +78,10 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
             </p>
           )}
 
-          {product.discountPercentage && (
+          {saleValidRightNow(
+            product?.discountStartDate || new Date(),
+            product?.discountExpiryDate || new Date()
+          ) && (
             <p className="text-xs py-0.5 font-poppins bg-orange-500 text-white pl-1 pr-5 ml-2 absolute top-3 right-3">
               -{product.discountPercentage}
             </p>

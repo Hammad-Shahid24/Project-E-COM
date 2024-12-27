@@ -32,8 +32,6 @@ const Pagination: FC<PaginationProps> = ({
 
   const handleNext = async () => {
 
-    console.log(items.length <= (currentPage + 1) * pageSize);
-    console.log(items.length < totalItems);
     if (currentPage < totalPages) {
       if (
         items.length < (currentPage + 1) * pageSize &&
@@ -60,7 +58,7 @@ const Pagination: FC<PaginationProps> = ({
         onClick={handlePrevious}
         disabled={currentPage === 1}
         className={`px-3 py-1 text-sm dark:bg-gray-700 text-gray-500 hover:text-gray-400 transition-all duration-300 dark:text-gray-200 rounded-md ${
-          currentPage === 1 ? "cursor-default opacity-0" : ""
+          currentPage === 1 ? "cursor-default opacity-50" : ""
         }`}
       >
         {t("collectionspage.pagination.previous")}
@@ -84,7 +82,7 @@ const Pagination: FC<PaginationProps> = ({
         onClick={handleNext}
         disabled={currentPage === totalPages}
         className={`px-3 py-1 text-sm dark:bg-gray-700 text-gray-500 hover:text-gray-400 transition-all duration-300 dark:text-gray-200 rounded-md ${
-          currentPage === totalPages ? "cursor-default opacity-0" : ""
+          currentPage === totalPages ? "cursor-default opacity-50" : ""
         }`}
       >
         {t("collectionspage.pagination.next")}

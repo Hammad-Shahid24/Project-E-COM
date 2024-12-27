@@ -2,15 +2,25 @@ import { FC } from "react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { TbShoppingBagX } from "react-icons/tb";
+import { Cart } from "../../../types/Shopping";
+import CartItem from "./cartItem";
+import { CustomScroll } from "react-custom-scroll";
 // import SearchItem from "./SearchItem";
 // import { CustomScroll } from "react-custom-scroll";
 // import "../../../styles/custom-scroll.css";
 
 interface CartDrawerContentProps {
   onClose: () => void;
+  cart: Cart;
+  loading: boolean;
+  error: string | null;
 }
 
-const CartDrawerContent: FC<CartDrawerContentProps> = ({ onClose }) => {
+const CartDrawerContent: FC<CartDrawerContentProps> = ({ onClose,
+  cart,
+  // loading,
+  // error
+}) => {
   const { t } = useTranslation();
 
   return (
@@ -39,20 +49,35 @@ const CartDrawerContent: FC<CartDrawerContentProps> = ({ onClose }) => {
         </motion.svg>
       </div>
 
-      {/* the below div contains the inspiration text */}
-      <div className="w-8/12 py-12 px-4 space-y-4 mx-auto ">
-        <TbShoppingBagX className="w-12 h-12 text-cyan-800 dark:text-gray-400 mx-auto" />
-        <h1 className="text-sm font-poppins  text-center text-cyan-800 dark:text-teal-200">
-          {t("drawers.cartdrawer.emptycart")}
-        </h1>
-        <button
-          onClick={() => console.log("Sign in")}
-          className="bg-cyan-800 rounded-3xl text-white font-semibold hover:bg-opacity-75 text-sm transition-colors duration-300 py-2 px-2 w-full mb-2 dark:bg-teal-600 dark:hover:bg-teal-700"
-        >
-          {t("drawers.cartdrawer.return")}
-        </button>
-      </div>
-    </div>
+        {
+          cart.cartItems.length === 0 ? (
+            <div className="w-8/12 py-12 px-4 space-y-4 mx-auto ">
+            <TbShoppingBagX className="w-12 h-12 text-cyan-800 dark:text-gray-400 mx-auto" />
+            <h1 className="text-sm font-poppins  text-center text-cyan-800 dark:text-teal-200">
+              {t("drawers.cartdrawer.emptycart")}
+            </h1>
+            <button
+              onClick={() => console.log("Sign in")}
+              className="bg-cyan-800 rounded-3xl text-white font-semibold hover:bg-opacity-75 text-sm transition-colors duration-300 py-2 px-2 w-full mb-2 dark:bg-teal-600 dark:hover:bg-teal-700"
+            >
+              {t("drawers.cartdrawer.return")}
+            </button>
+            </div>
+          ) : (
+            <div
+            className="grow w-full overflow-y-auto bg-[#fafafa
+        ]"
+          >
+            <CustomScroll heightRelativeToParent="calc(100%)">
+              <CartItem cart={cart}/>
+              {/* <div className="w-full bg-red-200 ">asdfsa</div> */}
+            </CustomScroll>
+          </div>           
+          )
+        }
+
+
+    </div >
   );
 };
 

@@ -1,3 +1,0 @@
-fetch by category for 3 routes,
-when sorting or filtering applied, 
-

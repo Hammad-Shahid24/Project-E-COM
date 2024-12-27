@@ -7,20 +7,29 @@ import { HiMagnifyingGlass } from "react-icons/hi2";
 import { useTheme } from "../../../hooks/useTheme";
 import { FiMoon } from "react-icons/fi";
 import { IoSunnyOutline } from "react-icons/io5";
+import { Category } from "../../../types/Shopping";
+import { User } from "../../../types/Auth";
+import { useNavigate } from "react-router-dom";
+import { getCategoryId } from "../../../utils/getCategoryIdByName";
 
 interface NavDrawerContentProps {
   onClose: () => void;
   toggleAuthDrawer: () => void;
   toggleSearchDrawer: () => void;
+  categories: Category[];
+  user: User | null;
 }
 
 const NavDrawerContent: FC<NavDrawerContentProps> = ({
   onClose,
   toggleAuthDrawer,
   toggleSearchDrawer,
+  categories,
+  user = null
 }) => {
   const { t } = useTranslation();
   const { theme, toggleTheme } = useTheme();
+  const navigate = useNavigate();
 
   return (
     <div className="flex flex-col  items-center justify-center">
@@ -55,23 +64,65 @@ const NavDrawerContent: FC<NavDrawerContentProps> = ({
           label={t("drawers.navdrawer.collections")}
           expandable
           subNavItems={[
-            { label: t("drawers.navdrawer.bestsellers") },
-            { label: t("drawers.navdrawer.newarrivals") },
-            { label: t("drawers.navdrawer.beauty") },
-            { label: t("drawers.navdrawer.haircare") },
+            {
+              label: t("drawers.navdrawer.bestsellers"),
+              onClick: () => {
+                onClose();
+                navigate(`best-sellers/${getCategoryId("Skin Care", categories)}`);
+              },
+            },
+            {
+              label: t("drawers.navdrawer.newarrivals"),
+              onClick: () => {
+                onClose();
+                navigate(`new-arrivals/${getCategoryId("Face Mask", categories)}`);
+              },
+            },
+            {
+              label: t("drawers.navdrawer.beauty"),
+              onClick: () => {
+                onClose();
+                navigate(`texture-makeup/${getCategoryId("Texture & Makeup", categories)}`)
+              },
+            },
+            {
+              label: t("drawers.navdrawer.haircare"),
+              onClick: () => {
+                onClose();
+                navigate(`face-mask/${getCategoryId("Face Mask", categories)}`);
+              },
+            },
           ]}
         />
         <NavItem
           label={t("drawers.navdrawer.skincare")}
+          onClick={(
+            ) => {
+              onClose();
+              navigate(`skin-care/${getCategoryId("Skin Care", categories)}`);
+            }
+          }
           saleBadge={t("drawers.navdrawer.sale")}
         />
         <NavItem
           label={t("drawers.navdrawer.quicklinks")}
           expandable
           subNavItems={[
-            { label: t("drawers.navdrawer.contactus") },
-            { label: t("drawers.navdrawer.aboutus") },
-            { label: t("drawers.navdrawer.faqs") },
+            { label: t("drawers.navdrawer.contactus"), onClick: () => {
+              onClose();
+              navigate("contactus");
+            }
+            },
+            { label: t("drawers.navdrawer.aboutus"), onClick: () => {
+              onClose();
+              navigate("aboutus");
+            }
+            },
+            { label: t("drawers.navdrawer.faqs"), onClick: () => {
+              onClose();
+              navigate("faqs");
+            }
+            },
           ]}
         />
         <NavItem
@@ -84,7 +135,19 @@ const NavDrawerContent: FC<NavDrawerContentProps> = ({
             toggleSearchDrawer();
           }}
         />
-        <NavItem
+        {
+          user ? (
+            <NavItem
+              icon={<GoPerson className="w-5 h-5 text-gray-900 dark:text-white" />}
+              label="Profile"
+              onClick={() => {
+                onClose();
+                
+                navigate("profile");
+              }}
+            />
+          ) : (
+            <NavItem
           icon={<GoPerson className="w-5 h-5 text-gray-900 dark:text-white" />}
           label={`${t("drawers.navdrawer.login")} / ${t(
             "drawers.navdrawer.register"
@@ -94,6 +157,8 @@ const NavDrawerContent: FC<NavDrawerContentProps> = ({
             toggleAuthDrawer();
           }}
         />
+          )
+        }
         <NavItem
           icon={
             theme === "dark" ? (

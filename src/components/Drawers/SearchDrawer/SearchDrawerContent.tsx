@@ -4,13 +4,21 @@ import { useTranslation } from "react-i18next";
 import { HiMagnifyingGlass } from "react-icons/hi2";
 import SearchItem from "./SearchItem";
 import { CustomScroll } from "react-custom-scroll";
+import { Product } from "../../../types/Shopping";
 // import "../../../styles/custom-scroll.css";
 
 interface SearchDrawerContentProps {
   onClose: () => void;
+  products: Product[];
+  loading: boolean;
+  error: string | null;
 }
 
-const SearchDrawerContent: FC<SearchDrawerContentProps> = ({ onClose }) => {
+const SearchDrawerContent: FC<SearchDrawerContentProps> = ({ onClose,
+  products,
+  loading,
+  error
+ }) => {
   const { t } = useTranslation();
 
   return (
@@ -62,7 +70,7 @@ const SearchDrawerContent: FC<SearchDrawerContentProps> = ({ onClose }) => {
     ]"
       >
         <CustomScroll heightRelativeToParent="calc(100%)">
-          <SearchItem />
+          <SearchItem onClose={onClose} products={products} loading={loading} error={error}/>
           {/* <div className="w-full bg-red-200 ">asdfsa</div> */}
         </CustomScroll>
       </div>

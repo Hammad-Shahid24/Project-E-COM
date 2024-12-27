@@ -15,13 +15,11 @@ import {
   clearError as clearCategoryError,
 } from "../redux/categories/categorySlice";
 import {
-  fetchFilteredProducts,
-  resetProducts,
   clearError as clearProductError,
+  fetchAllProducts,
 } from "../redux/products/productSlice";
 import { toast } from "react-toastify";
-import LoadingAnimation from "../assets/loading.json";
-import Lottie from "lottie-react";
+import Loading from "../shared/Loading";
 
 const Home: FC = () => {
   const { t } = useTranslation();
@@ -47,10 +45,8 @@ const Home: FC = () => {
     }
     if (!products.length) {
       dispatch(
-        fetchFilteredProducts({
-          filters: {
-            tags: ["Best Sellers"],
-          },
+        fetchAllProducts({
+          categoryId: categories[0]?.id || "",
           pageSize: 8,
         })
       );
@@ -78,9 +74,7 @@ const Home: FC = () => {
 
   if (categoryLoading || productLoading) {
     return (
-      <div className="w-full h-screen flex items-center justify-center">
-        <Lottie animationData={LoadingAnimation} loop={true} />
-      </div>
+      <Loading/>
     );
   }
 

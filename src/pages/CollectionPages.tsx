@@ -12,6 +12,7 @@ import { fetchAllProducts, fetchFilteredProducts, resetProducts } from "../redux
 import { RootState, AppDispatch } from "../app/store";
 import Loading from "../shared/Loading";
 import { Product } from "../types/Shopping";
+// import { toast } from "react-toastify";
 
 const CollectionPages: FC = () => {
   const { t } = useTranslation();
@@ -19,23 +20,15 @@ const CollectionPages: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const path = location.pathname.split("/")[1] as keyof typeof bannerData;
   const categoryId = location.pathname.split("/")[2];
-  const pageSize = 3;
+  const pageSize = 9;
 
   const [currentPage, setCurrentPage] = useState(1);
   const [currentPageProducts, setCurrentPageProducts] = useState<Product[]>([]);
   const [sortKey, setSortKey] = useState<keyof Product | string>("createdAt");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
+  const [filters, setFilters] = useState<string[]>([]);
 
   const { products, loading, error, totalProducts } = useSelector((state: RootState) => state.products);
-
-  // Mapping paths to tags
-  const pathToTagMap: { [key: string]: string } = {
-    "best-sellers": "Best Sellers",
-    "new-arrivals": "New Arrivals",
-    "skin-care": "Skin Care",
-    "face-mask": "Face Mask",
-    "texture-and-makeup": "Texture and Makeup",
-  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -45,17 +38,45 @@ const CollectionPages: FC = () => {
     return () => {
       dispatch(resetProducts());
     };
-  }, []);
+  }, [location]);
 
+  useEffect(() => {
+    const fetchProducts = async () => {
+      dispatch(resetProducts());
+      setCurrentPage(1);
+      await dispatch(
+        fetchFilteredProducts({
+          filters: {
+            categoryId: categoryId,
+            tags: filters,
+          },
+        })
+      );
+    };
+
+    if (products.length > 0) {
+      if (filters.length > 0) {
+        fetchProducts();
+      } else {
+        dispatch(fetchAllProducts({ categoryId, pageSize: pageSize }));
+      }
+    }
+  }, [filters]);
 
   // Memoize bannerData to avoid unnecessary recalculations on every render
   const bannerData = useMemo(
     () => ({
       "best-sellers": {
         heading: t("header.bestsellers"),
+        description: t("collectionspage.banners.skincaredetail"),
+        bgImage: skincarebg,
+
       },
       "new-arrivals": {
         heading: t("header.newarrivals"),
+        description: t("collectionspage.banners.skincaredetail"),
+        bgImage: skincarebg,
+
       },
       "skin-care": {
         heading: t("collectionspage.banners.skincareheading"),
@@ -78,20 +99,9 @@ const CollectionPages: FC = () => {
 
   const bannerProps = bannerData[path];
 
-
   if (loading) {
     return (
-      <div className="w-full h-screen flex items-center justify-center">
-        <Loading size={48} />
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="w-full h-screen flex items-center justify-center">
-        <p className="text-red-500">{error}</p>
-      </div>
+      <Loading/>
     );
   }
 
@@ -99,39 +109,6 @@ const CollectionPages: FC = () => {
     <div className="w-full mx-auto bg-[#fff5ee] dark:bg-gray-900">
       {bannerProps && <Banner {...bannerProps} />}
       <StickyFilter
-      items={products}
-      currentPage={currentPage}
-      setCurrentPage={setCurrentPage}
-      fetchMore={async () => {
-        await dispatch(fetchFilteredProducts({ filters: { tags: [path] }, pageSize: pageSize }));
-      }}
-      sortOptions={[
-          {
-            key: "createdAt-desc",
-            label: "Date (New to Old)",
-          },
-          {
-            key: "createdAt-asc",
-            label: "Date (Old to New)",
-          },
-          {
-            key: "name-desc",
-            label: "Alphabetically (Z-A)",
-          },
-          {
-            key: "name-asc",
-            label: "Alphabetically (A-Z)",
-          },
-          {
-            key: "price-desc",
-            label: "Price (High to Low)",
-          },
-          {
-            key: "price-asc",
-            label: "Price (Low to High)",
-          }
-         
-        ]}
         onSortChange={async (key: string) => {
           const [field, order] = key.split("-");
           setSortKey(field);
@@ -139,14 +116,34 @@ const CollectionPages: FC = () => {
           dispatch(resetProducts());
           setCurrentPage(1);
           await dispatch(
-            fetchFilteredProducts({
-              filters: { tags: [path] },
+            fetchAllProducts({
               sortField: field,
               sortOrder: order as "asc" | "desc",
               pageSize: pageSize,
+              categoryId,
             })
-          );
+          ).then((res) => {
+            console.log(res);
+          })
         }}
+        filters={filters}
+        setFilters={setFilters}
+   
+        onFilterChange = {
+          async (tags: string[]) => {
+            dispatch(resetProducts());
+            setCurrentPage(1);
+            await dispatch(
+              fetchFilteredProducts({
+                filters: {
+                  categoryId: categoryId,
+                  tags: tags,
+                },
+              }) 
+            );
+
+        }
+      }
        />
       <div className="max-w-screen-2xl mx-auto py-20 px-4 sm:px-6 lg:px-8">
         <div className="grid  grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-20">
@@ -164,10 +161,14 @@ const CollectionPages: FC = () => {
           fetchMore={async () => {
             await dispatch(
               fetchAllProducts({
+                sortField: sortKey,
+                sortOrder,
                 categoryId,
                 pageSize,                
               })
-            );
+            ).then((res) => {
+              console.log(res);
+            } )
           }}
         />
       </div>

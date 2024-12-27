@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC, } from "react";
 import { useTranslation } from "react-i18next";
 import { Category } from "../../types/Shopping";
 import { useNavigate } from "react-router-dom";

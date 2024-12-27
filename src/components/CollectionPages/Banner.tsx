@@ -9,7 +9,6 @@ interface BannerProps {
 }
 
 const Banner: FC<BannerProps> = ({ heading, description, bgImage }) => {
-  console.log(heading, description, bgImage);
 
   return (
     <div className="relative w-full mx-auto">

@@ -2,21 +2,40 @@ import { FC } from "react";
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { dummyProducts } from "../../../data/dummy";
+import { Product } from "../../../types/Shopping";
+import { useNavigate } from "react-router-dom";
 
-const SearchItem: FC = () => {
+interface  SearchItemProps {
+  products: Product[];
+  loading: boolean;
+  error: string | null;
+  onClose: () => void;
+}
+
+const SearchItem: FC<SearchItemProps> = ({
+  products,
+  loading,
+  error,
+  onClose
+
+}) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   return (
     <div className="w-full bg-transparent ">
-      {dummyProducts.map((item, index) => {
+      {products.map((item, index) => {
         return (
           <div
+          onClick={() => {navigate(`/product/${item.name.replace(/ /g, "-")}/${item.id}`)
+          onClose()
+          }
+        }
             key={index}
             className="flex  justify-between items-center w-full py-4 px-5 border-b md:border-none border-gray-300 dark:border-gray-700"
           >
             <div className="flex justify-between items-start">
               <img
-                src={item.image}
+                src={item.images[0]}
                 alt="product"
                 className="h-20 w-20 cursor-pointer"
               />
@@ -26,14 +45,14 @@ const SearchItem: FC = () => {
                   {item.name}
                 </p>
                 <div className="flex items-center pt-0.5">
-                  {item.salePrice ? (
+                  {item.discountPercentage ? (
                     <>
                       <p
                         className="
                       
                       text-sm font-medium font-poppins text-gray-500 dark:text-white "
                       >
-                        ${item.salePrice}
+                        ${item.price - item.price * item.discountPercentage}
                       </p>
                       <p className="text-sm font-poppins text-red-500 font-medium dark:text-gray-300 line-through ml-2">
                         ${item.price}
@@ -49,9 +68,9 @@ const SearchItem: FC = () => {
                     </p>
                   )}
 
-                  {item.discount && (
+                  {item.discountPercentage && (
                     <p className="text-xs py-0.5 font-poppins bg-orange-500  text-white  pl-1 pr-5 ml-2">
-                      -{item.discount}
+                      -{item.discountPercentage}
                     </p>
                   )}
                 </div>

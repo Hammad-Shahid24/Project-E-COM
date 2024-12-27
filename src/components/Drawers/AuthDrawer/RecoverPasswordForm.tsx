@@ -1,14 +1,14 @@
-import { FC, useState, useEffect } from "react";
+import { FC, useState,  } from "react";
 // import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import { validateEmail, validatePassword } from "../../../utils/validations";
+import { validateEmail,  } from "../../../utils/validations";
 // import { EyeIcon, EyeSlashIcon, XMarkIcon } from "@heroicons/react/20/solid";
 // import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "../../../app/store";
 import { recoverPassword } from "../../../redux/auth/authSlice";
-import Loading from "../../../shared/Loading";
+import Loading from "../../../shared/MiniLoading";
 
 interface RecoverPasswordFormProps {
   gotoLogin: () => void;
@@ -26,7 +26,6 @@ const RecoverPasswordForm: FC<RecoverPasswordFormProps> = ({
   // const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
-  const [password] = useState("");
   // const [passwordVisible, setPasswordVisible] = useState(false);
 
   const handleSubmit = () => {
@@ -93,7 +92,7 @@ const RecoverPasswordForm: FC<RecoverPasswordFormProps> = ({
           className="bg-slateteal mt-4 rounded-3xl text-white font-semibold hover:bg-opacity-75 transition-colors duration-300 p-2 w-full mb-2 dark:bg-teal-600 dark:hover:bg-teal-700"
         >
           {loading ? (
-            <Loading className="text-white mx-auto" />
+            <Loading />
           ) : (
             "RESET PASSWORD"
           )}{" "}

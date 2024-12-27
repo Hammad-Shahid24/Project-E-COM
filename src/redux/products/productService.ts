@@ -93,28 +93,22 @@ export const getFilteredProducts = async (
     categoryId?: string;
     tags?: string[];
   },
-  lastVisible: QueryDocumentSnapshot<Product> | null = null,
-  pageSize: number = 1,
-  sortField: string = "createdAt",
-  sortOrder: "asc" | "desc" = "desc"
 ): Promise<{
   products: Product[];
   totalProducts: number;
-  lastVisible: QueryDocumentSnapshot<Product> | null;
 }> => {
   try {
-    console.log("Last Visible:", lastVisible?.id || "null");
 
     const productsCol = collection(db, "products");
     let constraints: any[] = [];
 
     // Apply filters
-    // if (filters.categoryId) {
-      constraints.push(where("categoryId", "==", "5xjGCIaViVzVKWR6Zbgd"));
-    // }
-    // if (filters.tags && filters.tags.length > 0) {
-    //   constraints.push(where("tags", "array-contains-any", filters.tags));
-    // }
+    if (filters.categoryId) {
+      constraints.push(where("categoryId", "==", filters.categoryId));
+    }
+    if (filters.tags && filters.tags.length > 0) {
+      constraints.push(where("tags", "array-contains-any", ["Best Sellers" ]));
+    }
 
     // Get total products matching the filters
     const countQuery = query(productsCol, ...constraints);
@@ -123,22 +117,6 @@ export const getFilteredProducts = async (
 
     console.log("Total Products:", totalProducts);
 
-    // Apply sorting and add a fallback unique field ("id")
-    constraints.push(orderBy(sortField, sortOrder));
-    constraints.push(orderBy("id", "asc"));  // Ensure consistent order
-
-    // Pagination logic
-    if (lastVisible) {
-      // Use fields from the lastVisible document to start after the correct cursor
-      const cursorFields = [
-        lastVisible.data().createdAt,  // Primary field used in orderBy
-        lastVisible.data().id,         // Secondary field for tiebreaking
-      ];
-      constraints.push(startAfter(...cursorFields));
-    }
-
-    // Limit the results
-    constraints.push(limit(pageSize));
 
     // Execute the query
     const paginatedQuery = query(productsCol, ...constraints);
@@ -160,14 +138,9 @@ export const getFilteredProducts = async (
       return { ...data };
     });
 
-    // Get the last document for the next page cursor
-    const lastVisibleDocRef = 
-      productSnapshot.docs[productSnapshot.docs.length - 1] || null;
-
     return {
       products: productsList,
       totalProducts,
-      lastVisible: lastVisibleDocRef as QueryDocumentSnapshot<Product> | null,
     };
   } catch (error) {
     console.error("Error fetching filtered products:", error);

@@ -2,24 +2,50 @@ import React, { useState, useEffect, useRef } from "react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { useTranslation } from "react-i18next";
 
+const sortOptions = [
+  {
+    key: "createdAt-desc",
+    label: "Date (New to Old)",
+  },
+  {
+    key: "createdAt-asc",
+    label: "Date (Old to New)",
+  },
+  {
+    key: "name-desc",
+    label: "Alphabetically (Z-A)",
+  },
+  {
+    key: "name-asc",
+    label: "Alphabetically (A-Z)",
+  },
+  {
+    key: "price-desc",
+    label: "Price (High to Low)",
+  },
+  {
+    key: "price-asc",
+    label: "Price (Low to High)",
+  }
+];
+
 interface SortOption {
   key: string;
   label: string;
 }
 
 interface StickySortDropdownProps {
-  sortOptions: SortOption[];
   onSortChange: (key: string) => void;
 }
 
 const StickySortDropdown: React.FC<StickySortDropdownProps> = ({
-  sortOptions,
   onSortChange,
 }) => {
+ 
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(sortOptions[0].label);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  // const [selectedOption, setSelectedOption] = useState(sortOptions[0].label);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -36,8 +62,8 @@ const StickySortDropdown: React.FC<StickySortDropdownProps> = ({
 
   const toggleDropdown = () => setIsOpen((prev) => !prev);
 
-  const handleOptionClick = (option: SortOption) => {
-    setSelectedOption(option.label);
+  const handleOptionClick = (option:SortOption) => {
+    // setSelectedOption(option.label);
     onSortChange(option.key);
     setIsOpen(false);
   };
@@ -54,7 +80,8 @@ const StickySortDropdown: React.FC<StickySortDropdownProps> = ({
       >
         <span className="text-xs tracking-wide">
           
-          {t("collectionspage.stickyfilter.sortby")}: {selectedOption}
+          {/* {t("collectionspage.stickyfilter.sortby")}: {selectedOption} */}
+          {t("collectionspage.stickyfilter.sortby")}
         </span>
         <ChevronDownIcon className="w-5 h-5 text-gray-600 dark:text-gray-300" />
       </button>
