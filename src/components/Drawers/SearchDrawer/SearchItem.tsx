@@ -2,21 +2,26 @@ import { FC } from "react";
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { Product } from "../../../types/Shopping";
+import { Category, Product } from "../../../types/Shopping";
 import { useNavigate } from "react-router-dom";
+import { getCategoryId } from "../../../utils/getCategoryIdByName";
 
-interface  SearchItemProps {
+
+
+interface SearchItemProps {
   products: Product[];
   loading: boolean;
   error: string | null;
   onClose: () => void;
+  categories: Category[];
 }
 
 const SearchItem: FC<SearchItemProps> = ({
   products,
   // loading,
   // error,
-  onClose
+  onClose,
+  categories
 
 }) => {
   const { t } = useTranslation();
@@ -26,10 +31,11 @@ const SearchItem: FC<SearchItemProps> = ({
       {products.map((item, index) => {
         return (
           <div
-          onClick={() => {navigate(`/product/${item.name.replace(/ /g, "-")}/${item.id}`)
-          onClose()
-          }
-        }
+            onClick={() => {
+              navigate(`/product/${item.name.replace(/ /g, "-")}/${item.id}`)
+              onClose()
+            }
+            }
             key={index}
             className="flex  justify-between items-center w-full py-4 px-5 border-b md:border-none border-gray-300 dark:border-gray-700"
           >
@@ -88,7 +94,12 @@ const SearchItem: FC<SearchItemProps> = ({
           whileHover="hover" // Trigger animation state on hover
           whileTap="hover"
         >
-          <button className="py-1 ml-4 mr-1 text-sm font-poppins text-gray-900 font-medium dark:text-teal-200 ">
+          <button
+            onClick={() => {
+              navigate(`/best-sellers/5xjGCIaViVzVKWR6Zbgd`)
+              onClose()
+            }}
+            className="py-1 ml-4 mr-1 text-sm font-poppins text-gray-900 font-medium dark:text-teal-200 ">
             {t("drawers.searchdrawer.viewall")}
           </button>
           <motion.div
