@@ -15,6 +15,7 @@ interface CartDrawerContentProps {
   onClose: () => void;
   cart: Cart;
   loading: boolean;
+  user: Record<string, any> | null;
   handleUpdateQuantity: ({ productId, quantity }: { productId: string, quantity: number }) => Promise<void>;
   handleRemoveItem: ({ productId }: { productId: string }) => Promise<void>;
 }
@@ -24,6 +25,7 @@ const CartDrawerContent: FC<CartDrawerContentProps> = ({ onClose,
   loading,
   handleUpdateQuantity,
   handleRemoveItem
+  , user
 }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -57,7 +59,7 @@ const CartDrawerContent: FC<CartDrawerContentProps> = ({ onClose,
       </div>
 
       {/* Main Content */}
-      {loading && !skipLoading ? (
+      {user && loading && !skipLoading ? (
         <MiniLoading />
       ) : cart?.cartItems.length === 0 ? (
         <div className="w-8/12 py-12 px-4 space-y-4 mx-auto text-center">
@@ -101,48 +103,57 @@ const CartDrawerContent: FC<CartDrawerContentProps> = ({ onClose,
             </div> */}
 
             {/* Subtotal */}
-            <div className="flex justify-between items-center w-full px-6 py-4 bg-gray-50 dark:bg-gray-800 rounded-md shadow">
-              <p className="text-lg font-semibold text-gray-800 dark:text-teal-300 uppercase">
-                Subtotal
-              </p>
-              <p className="text-lg font-semibold text-gray-800 dark:text-teal-300">
-                ${cart?.total.toFixed(2)} <span className="text-sm">USD</span>
-              </p>
-            </div>
+            {
+              user &&
+              <div className="flex justify-between items-center w-full px-6 py-4 bg-gray-50 dark:bg-gray-800 rounded-md shadow">
+                <p className="text-lg font-semibold text-gray-800 dark:text-teal-300 uppercase">
+                  Subtotal
+                </p>
+                <p className="text-lg font-semibold text-gray-800 dark:text-teal-300">
+                  ${cart?.total.toFixed(2)} <span className="text-sm">USD</span>
+                </p>
+              </div>
+            }
 
 
             {/* Taxes Details */}
-            <div className="flex justify-between w-full px-4">
-              <p className="text-xs font-poppins text-gray-900 dark:text-teal-200 ">
-                Shipping, taxes, and discount codes are calculated at checkout
-              </p>
-            </div>
+            {
+              user &&
+              <div className="flex justify-between w-full px-4">
+                <p className="text-xs font-poppins text-gray-900 dark:text-teal-200 ">
+                  Shipping, taxes, and discount codes are calculated at checkout
+                </p>
+              </div>
+            }
 
             {/* View All Link */}
-            <div className="py-4 w-full">
-              <motion.div
-                className="w-full flex items-center group"
-                whileHover="hover"
-                whileTap="hover"
-              >
-                <button
-                  onClick={() => {
-                    navigate("/checkout")
-                    onClose()
-                  }}
-                  className="py-1 ml-4 mr-1 text-sm font-poppins text-gray-900 font-medium dark:text-teal-200">
-                  {/* {t("drawers.cartdrawer.viewall")} */}
-                  {t("drawers.cartdrawer.checkout")}
-                </button>
+            {
+              user &&
+              <div className="py-4 w-full">
                 <motion.div
-                  className="h-5 w-5"
-                  variants={{ hover: { x: 5 } }}
-                  transition={{ type: "spring", stiffness: 300 }}
+                  className="w-full flex items-center group"
+                  whileHover="hover"
+                  whileTap="hover"
                 >
-                  <ArrowRightIcon className="h-5 w-5 text-gray-900 dark:text-teal-300" />
+                  <button
+                    onClick={() => {
+                      navigate("/checkout")
+                      onClose()
+                    }}
+                    className="py-1 ml-4 mr-1 text-sm font-poppins text-gray-900 font-medium dark:text-teal-200">
+                    {/* {t("drawers.cartdrawer.viewall")} */}
+                    {t("drawers.cartdrawer.checkout")}
+                  </button>
+                  <motion.div
+                    className="h-5 w-5"
+                    variants={{ hover: { x: 5 } }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <ArrowRightIcon className="h-5 w-5 text-gray-900 dark:text-teal-300" />
+                  </motion.div>
                 </motion.div>
-              </motion.div>
-            </div>
+              </div>
+            }
 
 
           </div>
