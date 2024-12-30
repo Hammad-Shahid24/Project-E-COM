@@ -55,14 +55,20 @@ const Header: FC<HeaderProps> = ({
       <div className="max-w-screen-xl mx-auto px-4 ">
         <div className="flex justify-between items-center py-4 relative md:border-b border-gray-300 ">
           <div className="flex items-center gap-2">
-            <RiLogoutCircleLine
+            {
+              user &&
+              <RiLogoutCircleLine
 
-            data-tooltip-id="my-tooltip" data-tooltip-content="Log Out?"
-              onClick={() => {
-                dispatch(logOut());
-              }}
-              className="hidden md:block w-5 h-5 text-gray-900 dark:text-white cursor-pointer"
-            />
+                data-tooltip-id="my-tooltip" data-tooltip-content="Log Out?"
+                onClick={() => {
+                  dispatch(logOut()).then(() => {
+                    window.location.reload();
+                  });
+
+                }}
+                className="hidden md:block w-5 h-5 text-gray-900 dark:text-white cursor-pointer"
+              />
+            }
             <h1 className="hidden md:block font-medium text-md text-black dark:text-white">
               {t("header.welcome")}
             </h1>
@@ -126,7 +132,7 @@ const Header: FC<HeaderProps> = ({
             {user ? (
               <UserPic />
             ) : (
-              
+
               <GoPerson
                 onClick={AuthDrawerToggle}
                 className=" w-7 h-7  text-gray-900 dark:text-white cursor-pointer"
@@ -157,18 +163,18 @@ const Header: FC<HeaderProps> = ({
             label={t("header.skincare")} />
           <HeaderItem
             toPath={`face-mask/${getCategoryId("Face Mask", categories)}`
-          }
+            }
             label={t("header.facemask")} />
           <HeaderItem
             toPath={`texture-makeup/${getCategoryId("Texture & Makeup", categories)}`
-          }
+            }
             label={t("header.textureandmakeup")}
           />
           <HeaderItem toPath="contactus" label={t("header.contactus")} />
 
         </div>
       </div>
-          <Tooltip id="my-tooltip" />
+      <Tooltip id="my-tooltip" />
     </header>
   );
 };
