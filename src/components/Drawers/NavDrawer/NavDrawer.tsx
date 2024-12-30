@@ -5,7 +5,7 @@ import NavDrawerContent from "./NavDrawerContent";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../app/store";
 import { fetchAllCategories } from "../../../redux/categories/categorySlice";
-import { User } from "../../../types/Auth";
+import { logOut } from "../../../redux/auth/authSlice";
 
 
 interface NavDrawerProps {
@@ -23,13 +23,24 @@ const NavDrawer: FC<NavDrawerProps> = ({
 }) => {
   const dispatch = useDispatch<AppDispatch>();
   const { categories } = useSelector((state: RootState) => state.categories);
-  const user = useSelector((state: RootState) => state.auth.user as User | null);
+  const user = useSelector((state: RootState) => state.auth.user);
 
   useEffect(() => {
     if (categories.length === 0) {
       dispatch(fetchAllCategories());
     }
   })
+
+  const handleLogOut = async (): Promise<void> => {
+    await dispatch(logOut()).then((result) => {
+      if (logOut.fulfilled.match(result)) {
+        window.location.reload();
+      } else if (logOut.rejected.match(result)) {
+        console.error("Error logging out: ", result.payload);
+      }
+    });
+    onClose();
+  };
 
   return (
     <>
@@ -66,6 +77,7 @@ const NavDrawer: FC<NavDrawerProps> = ({
                 onClose={onClose}
                 categories={categories}
                 user={user}
+                handleLogOut={handleLogOut}
               />
             </div>
           </motion.div>

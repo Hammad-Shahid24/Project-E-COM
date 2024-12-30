@@ -11,13 +11,16 @@ import { Category } from "../../../types/Shopping";
 import { User } from "../../../types/Auth";
 import { useNavigate } from "react-router-dom";
 import { getCategoryId } from "../../../utils/getCategoryIdByName";
+import { RiLogoutCircleLine } from "react-icons/ri";
+
 
 interface NavDrawerContentProps {
   onClose: () => void;
   toggleAuthDrawer: () => void;
   toggleSearchDrawer: () => void;
   categories: Category[];
-  user: User | null;
+  user: Record<string, any> | null;
+  handleLogOut: () => Promise<void>;
 }
 
 const NavDrawerContent: FC<NavDrawerContentProps> = ({
@@ -25,7 +28,8 @@ const NavDrawerContent: FC<NavDrawerContentProps> = ({
   toggleAuthDrawer,
   toggleSearchDrawer,
   categories,
-  user = null
+  user = null,
+  handleLogOut,
 }) => {
   const { t } = useTranslation();
   const { theme, toggleTheme } = useTheme();
@@ -97,10 +101,10 @@ const NavDrawerContent: FC<NavDrawerContentProps> = ({
         <NavItem
           label={t("drawers.navdrawer.skincare")}
           onClick={(
-            ) => {
-              onClose();
-              navigate(`skin-care/${getCategoryId("Skin Care", categories)}`);
-            }
+          ) => {
+            onClose();
+            navigate(`skin-care/${getCategoryId("Skin Care", categories)}`);
+          }
           }
           saleBadge={t("drawers.navdrawer.sale")}
         />
@@ -108,20 +112,23 @@ const NavDrawerContent: FC<NavDrawerContentProps> = ({
           label={t("drawers.navdrawer.quicklinks")}
           expandable
           subNavItems={[
-            { label: t("drawers.navdrawer.contactus"), onClick: () => {
-              onClose();
-              navigate("contactus");
-            }
+            {
+              label: t("drawers.navdrawer.contactus"), onClick: () => {
+                onClose();
+                navigate("contactus");
+              }
             },
-            { label: t("drawers.navdrawer.aboutus"), onClick: () => {
-              onClose();
-              navigate("aboutus");
-            }
+            {
+              label: t("drawers.navdrawer.aboutus"), onClick: () => {
+                onClose();
+                navigate("aboutus");
+              }
             },
-            { label: t("drawers.navdrawer.faqs"), onClick: () => {
-              onClose();
-              navigate("faqs");
-            }
+            {
+              label: t("drawers.navdrawer.faqs"), onClick: () => {
+                onClose();
+                navigate("faqs");
+              }
             },
           ]}
         />
@@ -142,21 +149,21 @@ const NavDrawerContent: FC<NavDrawerContentProps> = ({
               label="Profile"
               onClick={() => {
                 onClose();
-                
+
                 navigate("profile");
               }}
             />
           ) : (
             <NavItem
-          icon={<GoPerson className="w-5 h-5 text-gray-900 dark:text-white" />}
-          label={`${t("drawers.navdrawer.login")} / ${t(
-            "drawers.navdrawer.register"
-          )}`}
-          onClick={() => {
-            onClose();
-            toggleAuthDrawer();
-          }}
-        />
+              icon={<GoPerson className="w-5 h-5 text-gray-900 dark:text-white" />}
+              label={`${t("drawers.navdrawer.login")} / ${t(
+                "drawers.navdrawer.register"
+              )}`}
+              onClick={() => {
+                onClose();
+                toggleAuthDrawer();
+              }}
+            />
           )
         }
         <NavItem
@@ -175,6 +182,13 @@ const NavDrawerContent: FC<NavDrawerContentProps> = ({
           }
           label={theme === "dark" ? t("theme.light") : t("theme.dark")}
           onClick={toggleTheme}
+        />
+        <NavItem
+          icon={
+            <RiLogoutCircleLine className="w-5 h-5 text-gray-900 dark:text-white" />
+          }
+          label={"Logout"}
+          onClick={handleLogOut}
         />
       </div>
     </div>
