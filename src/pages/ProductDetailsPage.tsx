@@ -166,7 +166,6 @@ const ProductDetailsPage: FC = () => {
             handleAddToCart,
             isDescriptionCollapsed,
             toggleDescription,
-            user,
             loading: cartLoading
           })
         )}

@@ -17,7 +17,6 @@ interface ProductDetailProps {
     handleAddToCart: () => void;
     isDescriptionCollapsed: boolean;
     toggleDescription: () => void;
-    user: Record<string, any> | null;
     loading: boolean;
 }
 
@@ -31,7 +30,6 @@ const ProductDetails: FC<ProductDetailProps> = ({
     handleAddToCart,
     isDescriptionCollapsed,
     toggleDescription,
-    user,
     loading
 }) => {
 
@@ -133,7 +131,7 @@ const ProductDetails: FC<ProductDetailProps> = ({
 
                         {/* Add to Cart Button */}
                         <button
-                            disabled={!user || loading}
+                            disabled={loading}
                             onClick={handleAddToCart}
                             className="border-2 border-teal-500 text-teal-500 text-md px-6 py-1   focus:outline-none transition-all duration-300 hover:bg-teal-500 hover:text-white dark:border-teal-500 dark:text-gray-300 dark:hover:bg-teal-500 dark:hover:text-white">
                             {loading ? <MiniLoading /> : "Add to Cart"}
