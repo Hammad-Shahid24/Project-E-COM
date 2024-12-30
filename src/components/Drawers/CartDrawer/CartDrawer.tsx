@@ -3,7 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import CartDrawerContent from "./CartDrawerContent";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../../app/store";
-import { fetchCart } from "../../../redux/cart/cartSlice";
+import { fetchCart, removeCartItem, updateQuantity, resetError } from "../../../redux/cart/cartSlice";
+import { toast } from "react-toastify";
 
 interface SearchDrawerProps {
   isOpen: boolean;
@@ -13,7 +14,7 @@ interface SearchDrawerProps {
 const CartDrawer: FC<SearchDrawerProps> = ({ isOpen, onClose }) => {
   const dispatch = useDispatch<AppDispatch>();
   const { user } = useSelector((state: RootState) => state.auth);
-  const {cart, error} = useSelector((state: RootState) => state.cart);
+  const { cart, loading, error } = useSelector((state: RootState) => state.cart);
 
   useEffect(() => {
     if (user) {
@@ -27,6 +28,48 @@ const CartDrawer: FC<SearchDrawerProps> = ({ isOpen, onClose }) => {
       }
     }
   }, [user]);
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+    }
+
+    return () => {
+      dispatch(resetError());
+    }
+  }, [error]);
+
+  const handleUpdateQuantity = async ({ productId, quantity }: { productId: string, quantity: number }) => {
+    if (user) {
+      try {
+        const result = await dispatch(updateQuantity({ userId: user.id, productId, quantity }));
+        if (updateQuantity.rejected.match(result)) {
+          toast.error(result.payload as string);
+        } else if (updateQuantity.fulfilled.match(result)) {
+          console.log("Quantity updated successfully");
+        }
+      } catch (error) {
+        console.error("Failed to update quantity:", error);
+      }
+    }
+  };
+
+  const handleRemoveItem = async ({ productId }: { productId: string }) => {
+    if (user) {
+      try {
+        const result = await dispatch(removeCartItem({ userId: user.id, productId }));
+        if (removeCartItem.rejected.match(result)) {
+          toast.error(result.payload as string);
+        } else if (removeCartItem.fulfilled.match(result)) {
+          console.log("Item removed successfully");
+        }
+      } catch (error) {
+        console.error("Failed to remove item:", error);
+      }
+    }
+  };
+
+
 
   return (
     <>
@@ -57,7 +100,7 @@ const CartDrawer: FC<SearchDrawerProps> = ({ isOpen, onClose }) => {
             className="fixed top-0 right-0 w-80 h-full bg-white dark:bg-gray-800 shadow-lg z-50"
           >
             <div className="relative h-full">
-              <CartDrawerContent cart={cart!} loading error={error} onClose={onClose} />
+              <CartDrawerContent cart={cart!} loading={loading} onClose={onClose} handleRemoveItem={handleRemoveItem} handleUpdateQuantity={handleUpdateQuantity} />
             </div>
           </motion.div>
         )}

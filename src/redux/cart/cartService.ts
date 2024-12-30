@@ -102,7 +102,7 @@ export const fetchCartByUserId = async (userId: string): Promise<Cart | null> =>
     if (cartSnapshot.empty) {
       return null;
     }
-    
+
     const cartDoc = cartSnapshot.docs[0];
     const cartData = cartDoc.data() as Cart;
 
@@ -115,9 +115,6 @@ export const fetchCartByUserId = async (userId: string): Promise<Cart | null> =>
     throw new Error("Error fetching cart: " + (error instanceof Error ? error.message : String(error)));
   }
 };
-
-
-
 
 // Empty a user's cart
 export const emptyCart = async (userId: string): Promise<void> => {
@@ -137,5 +134,139 @@ export const emptyCart = async (userId: string): Promise<void> => {
   } catch (error) {
     console.error("Error emptying cart:", error);
     throw new Error("Error emptying cart: " + (error instanceof Error ? error.message : String(error)));
+  }
+};
+
+// Remove a product from the cart
+export const removeFromCart = async (userId: string, productId: string): Promise<void> => {
+  try {
+    const cart = await fetchCartByUserId(userId);
+
+    if (!cart) {
+      throw new Error("Cart not found for the user.");
+    }
+
+    const updatedCartItems = cart.cartItems.filter((item) => item.product.id !== productId);
+
+    const total = updatedCartItems.reduce((sum, item) => {
+      const { discountPercentage, discountStartDate, discountExpiryDate, price } = item.product;
+
+      let finalPrice = price;
+
+      // Apply discount if within the valid period
+      if (
+        saleValidRightNow(discountStartDate || new Date(), discountExpiryDate || new Date())
+      ) {
+        finalPrice = price - (price * (discountPercentage ?? 0)) / 100;
+      }
+
+      return sum + finalPrice * item.quantity;
+    }, 0);
+
+    const cartRef = doc(db, "carts", cart.id!);
+    await updateDoc(cartRef, {
+      cartItems: updatedCartItems,
+      total,
+      updatedAt: serverTimestamp(),
+    });
+  } catch (error) {
+    console.error("Error removing from cart:", error);
+    throw new Error("Error removing from cart: " + (error instanceof Error ? error.message : String(error)));
+  }
+};
+
+// reduce the quantity of a product in the cart
+// export const reduceProductQuantity = async (
+//   userId: string,
+//   productId: string
+// ): Promise<void> => {
+//   try {
+//     const cart = await fetchCartByUserId(userId);
+
+//     if (!cart) {
+//       throw new Error("Cart not found for the user.");
+//     }
+
+//     const updatedCartItems = cart.cartItems.map((item) => {
+//       if (item.product.id === productId) {
+//         if (item.quantity > 1) {
+//           item.quantity -= 1;
+//         }
+//       }
+//       return item;
+//     });
+
+//     const total = updatedCartItems.reduce((sum, item) => {
+//       const { discountPercentage, discountStartDate, discountExpiryDate, price } = item.product;
+
+//       let finalPrice = price;
+
+//       // Apply discount if within the valid period
+//       if (
+//         saleValidRightNow(discountStartDate || new Date(), discountExpiryDate || new Date())
+//       ) {
+//         finalPrice = price - (price * (discountPercentage ?? 0)) / 100;
+//       }
+
+//       return sum + finalPrice * item.quantity;
+//     }, 0);
+
+//     const cartRef = doc(db, "carts", cart.id!);
+//     await updateDoc(cartRef, {
+//       cartItems: updatedCartItems,
+//       total,
+//       updatedAt: serverTimestamp(),
+//     });
+//   } catch (error) {
+//     console.error("Error reducing product quantity:", error);
+//     throw new Error("Error reducing product quantity: " + (error instanceof Error ? error.message : String(error)));
+//   }
+// };
+
+// update the quantity of a product in the cart
+export const updateProductQuantity = async (
+  userId: string,
+  productId: string,
+  newQuantity: number
+): Promise<void> => {
+  try {
+    console.log()
+    const cart = await fetchCartByUserId(userId);
+
+    if (!cart) {
+      throw new Error("Cart not found for the user.");
+    }
+
+    const updatedCartItems = cart.cartItems.map((item) => {
+      if (item.product.id === productId) {
+        item.quantity = newQuantity;
+      }
+      return item;
+    });
+
+    const total = updatedCartItems.reduce((sum, item) => {
+      const { discountPercentage, discountStartDate, discountExpiryDate, price } = item.product;
+
+      let finalPrice = price;
+
+      // Apply discount if within the valid period
+      if (
+        saleValidRightNow(discountStartDate || new Date(), discountExpiryDate || new Date())
+      ) {
+        finalPrice = price - (price * (discountPercentage ?? 0)) / 100;
+      }
+
+      return sum + finalPrice * item.quantity;
+    }, 0);
+
+    const cartRef = doc(db, "carts", cart.id!);
+    await updateDoc(cartRef, {
+      cartItems: updatedCartItems,
+      total,
+      updatedAt: serverTimestamp(),
+    });
+  } catch (error) {
+    console.error("Error updating product quantity:", error);
+    throw new Error("Error updating product quantity: " + (error instanceof Error ? error.message : String(error)));
   }
 };

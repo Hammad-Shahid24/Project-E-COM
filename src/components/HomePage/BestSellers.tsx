@@ -68,7 +68,7 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
                 {product?.price -
                   (product?.price * (product?.discountPercentage ?? 0)) / 100}
               </p>
-              <p className="text-sm font-poppins text-red-500 font-medium dark:text-gray-300 line-through ml-2">
+              <p className="text-sm font-poppins text-red-500 font-medium dark:text-orange-400 line-through ml-2">
                 ${product?.price}
               </p>
             </>
@@ -82,10 +82,10 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
             product?.discountStartDate || new Date(),
             product?.discountExpiryDate || new Date()
           ) && (
-            <p className="text-xs py-0.5 font-poppins bg-orange-500 text-white pl-1 pr-5 ml-2 absolute top-3 right-3">
-              -{product.discountPercentage}
-            </p>
-          )}
+              <p className="text-xs py-0.5 font-poppins bg-orange-500 text-white pl-1 pr-5 ml-2 absolute top-3 right-3">
+                -{product.discountPercentage}%
+              </p>
+            )}
         </div>
       </div>
     </div>

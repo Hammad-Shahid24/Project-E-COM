@@ -24,7 +24,7 @@ const CheckoutPage: FC = () => {
 
   if (loading) {
     return (
-      <div className="w-full h-screen flex items-center justify-center">
+      <div className="flex items-center justify-center h-screen w-full bg-gray-100 dark:bg-gray-800">
         <Loading />
       </div>
     );
@@ -32,33 +32,45 @@ const CheckoutPage: FC = () => {
 
   if (error) {
     return (
-      <div className="w-full h-screen flex items-center justify-center">
-        <p className="text-red-500">{error}</p>
+      <div className="flex items-center justify-center h-screen w-full bg-gray-100 dark:bg-gray-800">
+        <p className="text-red-500 text-lg font-medium">{error}</p>
       </div>
     );
   }
 
   return (
-    <div className="max-w-screen-lg mx-auto py-12 px-4 sm:px-6 lg:px-8">
-      <h1 className="text-3xl font-semibold text-gray-800 dark:text-gray-200 mb-8">
+    <div className="max-w-screen-lg mx-auto py-12 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900 rounded-lg shadow-md">
+      <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-200 mb-8 text-center">
         Checkout
       </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div>
-          <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Cart Section */}
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow flex flex-col">
+          <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-4 border-b pb-3">
             Your Cart
           </h2>
-          {cart?.cartItems.map((item) => (
-            <CartItem key={item.product.id} cart={cart} />
-          ))}
-          <div className="mt-4">
+          <div className="flex-1 overflow-y-auto max-h-96 space-y-4 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-thumb-gray-600 dark:scrollbar-track-gray-700">
+            {cart?.cartItems?.length > 0 ? (
+              cart.cartItems.map((item) => (
+                <CartItem key={item.product.id} cart={cart} />
+              ))
+            ) : (
+              <p className="text-gray-500 dark:text-gray-400">Your cart is empty.</p>
+            )}
+          </div>
+          <div className="mt-4 pt-4 border-t">
             <p className="text-lg font-medium text-gray-800 dark:text-gray-200">
-              Total: ${cart?.total}
+              Total:{" "}
+              <span className="text-teal-600 dark:text-teal-300">
+                ${cart?.total.toFixed(2)}
+              </span>
             </p>
           </div>
         </div>
-        <div>
-          <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-4">
+
+        {/* Payment Section */}
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+          <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-4 border-b pb-3">
             Payment
           </h2>
           <Elements stripe={stripePromise}>

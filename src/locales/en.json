@@ -79,7 +79,9 @@
             "cartdrawer": {
                 "shoppingcart": "SHOPPING CART",
                 "emptycart": "Your cart is empty.",
-                "return": "RETURN TO SHOP"
+                "return": "RETURN TO SHOP",
+                "checkout": "CHECKOUT",
+                "viewall": "View all"
             }
         },
         "homepage": {

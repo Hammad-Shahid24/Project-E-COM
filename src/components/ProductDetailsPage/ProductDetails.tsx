@@ -34,8 +34,8 @@ const ProductDetails: FC<ProductDetailProps> = ({
     user,
     loading
 }) => {
-    
-    return <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start relative  bg-">
+
+    return <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start relative ">
         {/* Product Image */}
         <div className="flex flex-col items-center">
             <img
@@ -71,21 +71,21 @@ const ProductDetails: FC<ProductDetailProps> = ({
                     product?.discountStartDate || new Date(),
                     product?.discountExpiryDate || new Date()
                 ) ? (
-                    <>  
-                    <div className="flex items-center gap-x-4">
-                        <p className="text-md font-normal text-[#8d5151] dark:text-teal-400">
-                            ${product?.price - (product.price * product?.discountPercentage!) / 100}
-                        </p>
-                        <p className="text-md font-light text-gray-400 line-through dark:text-gray-300">
-                            ${product?.price}
-                        </p>
-                        <span className="text-sm text-center font-medium text-white bg-[#c07575] dark:bg-[#532d2d] px-4 rounded-sm py-1 ">
-                            -{product?.discountPercentage}%
-                        </span>
-                    </div>
-                    <div className="flex items-center gap-x-4 mt-4 justify-center">
-                        <DurationCalculator startDate={product?.discountStartDate || new Date()} endDate={product?.discountExpiryDate || new Date()}/>
-                    </div>
+                    <>
+                        <div className="flex items-center gap-x-4">
+                            <p className="text-md font-normal text-[#8d5151] dark:text-teal-400">
+                                ${product?.price - (product.price * product?.discountPercentage!) / 100}
+                            </p>
+                            <p className="text-md font-light text-gray-400 line-through dark:text-gray-300">
+                                ${product?.price}
+                            </p>
+                            <span className="text-sm text-center font-medium text-white bg-[#c07575] dark:bg-[#532d2d] px-4 rounded-sm py-1 ">
+                                -{product?.discountPercentage}%
+                            </span>
+                        </div>
+                        <div className="flex items-center gap-x-4 mt-4 justify-center">
+                            <DurationCalculator startDate={product?.discountStartDate || new Date()} endDate={product?.discountExpiryDate || new Date()} />
+                        </div>
                     </>
                 ) : (
                     <p className="text-2xl font-semibold text-teal-700 dark:text-teal-400">
@@ -136,7 +136,7 @@ const ProductDetails: FC<ProductDetailProps> = ({
                             disabled={!user || loading}
                             onClick={handleAddToCart}
                             className="border-2 border-teal-500 text-teal-500 text-md px-6 py-1   focus:outline-none transition-all duration-300 hover:bg-teal-500 hover:text-white dark:border-teal-500 dark:text-gray-300 dark:hover:bg-teal-500 dark:hover:text-white">
-                            {loading ? <MiniLoading/> : "Add to Cart"}
+                            {loading ? <MiniLoading /> : "Add to Cart"}
                         </button>
                     </div>
                 ) : (
