@@ -1,5 +1,5 @@
 import { FC, useCallback } from "react";
-import { debounce, set } from "lodash";
+import { debounce } from "lodash";
 import { Cart } from "../../../types/Shopping";
 import { useNavigate } from "react-router-dom";
 import { saleValidRightNow } from "../../../utils/saleValidRightNow";
