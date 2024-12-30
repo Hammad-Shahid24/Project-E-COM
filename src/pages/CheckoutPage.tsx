@@ -8,12 +8,14 @@ import CheckoutForm from "../components/CheckoutPage/CheckoutForm";
 import CartItemList from "../components/Drawers/CartDrawer/cartItem";
 import Loading from "../shared/Loading";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 // Load your Stripe publishable key
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
 const CheckoutPage: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const { cart, loading, error } = useSelector((state: RootState) => state.cart);
   const { user } = useSelector((state: RootState) => state.auth);
   const [skipLoading, setSkipLoading] = useState(false);
@@ -21,6 +23,9 @@ const CheckoutPage: FC = () => {
   useEffect(() => {
     if (user) {
       dispatch(fetchCart(user.id));
+    } else {
+      toast.error("Please login to continue.");
+      navigate("/");
     }
   }, [user]);
 
