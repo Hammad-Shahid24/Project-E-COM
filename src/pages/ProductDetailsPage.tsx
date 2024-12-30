@@ -16,7 +16,7 @@ const ProductDetailsPage: FC = () => {
   const location = useLocation();
   const dispatch = useDispatch<AppDispatch>();
   const { product, loading, error } = useSelector((state: RootState) => state.products);
-  const { cart, loading:cartLoading } = useSelector((state: RootState) => state.cart);
+  const { cart, loading: cartLoading } = useSelector((state: RootState) => state.cart);
   const { user } = useSelector((state: RootState) => state.auth);
   const path = location.pathname;
 
@@ -37,7 +37,7 @@ const ProductDetailsPage: FC = () => {
 
 
   useEffect(() => {
-      dispatch(fetchProductById(productId));
+    dispatch(fetchProductById(productId));
 
     return () => {
       dispatch(resetProduct());
@@ -101,46 +101,51 @@ const ProductDetailsPage: FC = () => {
     setDescriptionCollapsed(!isDescriptionCollapsed);
   };
 
-   const handleAddToCart = async () => {
-      if (loading) return;
-      if (!product) return;
+  const handleAddToCart = async () => {
+    if (loading) return;
+    if (!product) return;
 
-      try {
-        await dispatch(
-          addCartItem({
-            userId: user?.id,
-            product: product,
-            quantity: 1,
-          })
-        ).unwrap();
-  
-        toast.success(
-          <div className="flex items-start">
-            <img src={product.images[0]} alt="Product" className="w-16 h-16 mr-4 rounded" />
-            <div className="flex flex-col">
-              <p className="text-sm font-poppins text-gray-800 dark:text-gray-200 truncate pr-2 w-48 md:w-32">
-                {product.name}
-              </p>
+    if (!user) {
+      toast.error("Please login to add items to cart.");
+      return;
+    }
+
+    try {
+      await dispatch(
+        addCartItem({
+          userId: user?.id,
+          product: product,
+          quantity: 1,
+        })
+      ).unwrap();
+
+      toast.success(
+        <div className="flex items-start">
+          <img src={product.images[0]} alt="Product" className="w-16 h-16 mr-4 rounded" />
+          <div className="flex flex-col">
+            <p className="text-sm font-poppins text-gray-800 dark:text-gray-200 truncate pr-2 w-48 md:w-32">
+              {product.name}
+            </p>
+            <p className="text-xs font-poppins text-gray-500 dark:text-gray-300">
               <p className="text-xs font-poppins text-gray-500 dark:text-gray-300">
-                <p className="text-xs font-poppins text-gray-500 dark:text-gray-300">
-                  Quantity: {((cart?.cartItems.find((item) => item.product.id === product.id)?.quantity || 0) + 1)}
-                </p>
+                Quantity: {((cart?.cartItems.find((item) => item.product.id === product.id)?.quantity || 0) + 1)}
               </p>
-            </div>
-          </div>,
-          { autoClose: 5000 }
-        );
-  
-      } catch (err) {
-        toast.error(typeof err === "string" ? err : "Failed to add item to cart. Please try again.");
-      }
-    };
+            </p>
+          </div>
+        </div>,
+        { autoClose: 5000 }
+      );
+
+    } catch (err) {
+      toast.error(typeof err === "string" ? err : "Failed to add item to cart. Please try again.");
+    }
+  };
 
   if (loading) {
     return <Loading />;
   }
 
- 
+
 
   return (
     <div className="w-full mx-auto bg-[#fff5ee] dark:bg-gray-900">
@@ -193,7 +198,7 @@ const ProductDetailsPage: FC = () => {
     </div>
   );
 
-  
+
 };
 
 export default ProductDetailsPage;

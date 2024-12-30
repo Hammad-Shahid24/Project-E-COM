@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Product } from "../../types/Shopping";
-import { FC,  } from "react";
+import { FC, } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../../app/store";
@@ -27,6 +27,11 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
   const handleAddToCart = async (product: Product) => {
     if (loading) return;
 
+    if (!user) {
+      toast.error("Please login to add items to cart.");
+      return;
+    }
+
     try {
       await dispatch(
         addCartItem({
@@ -49,19 +54,19 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
               </p>
               <p className="text-xs font-poppins text-gray-500">
                 {saleValidRightNow(
-            product?.discountStartDate || new Date(),
-            product?.discountExpiryDate || new Date()
-          ) ? (
-            <>
-              <p className="text-xs font-poppins text-gray-500">
-                ${product.price - (product.price * (product.discountPercentage ?? 0)) / 100}
-              </p>
-            </>
-          ) : (
-            <p className="text-xs font-poppins text-gray-500">
-              ${product.price}
-            </p>
-          )}
+                  product?.discountStartDate || new Date(),
+                  product?.discountExpiryDate || new Date()
+                ) ? (
+                  <>
+                    <p className="text-xs font-poppins text-gray-500">
+                      ${product.price - (product.price * (product.discountPercentage ?? 0)) / 100}
+                    </p>
+                  </>
+                ) : (
+                  <p className="text-xs font-poppins text-gray-500">
+                    ${product.price}
+                  </p>
+                )}
               </p>
 
             </p>
@@ -119,10 +124,10 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
             product?.discountStartDate || new Date(),
             product?.discountExpiryDate || new Date()
           ) && (
-            <p className="text-xs py-1 px-3 font-medium font-poppins bg-orange-500 text-white ml-2  absolute top-4 right-4">
-              -{product.discountPercentage}%
-            </p>
-          )}
+              <p className="text-xs py-1 px-3 font-medium font-poppins bg-orange-500 text-white ml-2  absolute top-4 right-4">
+                -{product.discountPercentage}%
+              </p>
+            )}
         </div>
       </div>
     </div>
