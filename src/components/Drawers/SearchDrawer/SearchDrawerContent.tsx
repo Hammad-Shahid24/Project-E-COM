@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { HiMagnifyingGlass } from "react-icons/hi2";
+// import { HiMagnifyingGlass } from "react-icons/hi2";
 import SearchItem from "./SearchItem";
 import { CustomScroll } from "react-custom-scroll";
 import { Category, Product } from "../../../types/Shopping";

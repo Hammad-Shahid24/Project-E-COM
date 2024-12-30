@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { Category, Product } from "../../../types/Shopping";
 import { useNavigate } from "react-router-dom";
-import { getCategoryId } from "../../../utils/getCategoryIdByName";
+// import { getCategoryId } from "../../../utils/getCategoryIdByName";
 
 
 
@@ -21,7 +21,7 @@ const SearchItem: FC<SearchItemProps> = ({
   // loading,
   // error,
   onClose,
-  categories
+  // categories
 
 }) => {
   const { t } = useTranslation();
